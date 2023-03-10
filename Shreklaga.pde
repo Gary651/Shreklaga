@@ -37,6 +37,7 @@ void draw()
 {
   background(0);
   s.drawStars();
+  p.drawShot();
   p.movePlayer();
   s.drawStars();
   p.drawPlayer();
@@ -60,6 +61,8 @@ void keyPressed()
 {
   if(key == 'a' || key == 'd')
     p.addThrust(key, true);
+  if(key == 'w')
+    p.shoot();
 }
 
 void keyReleased()
