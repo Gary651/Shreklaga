@@ -1,21 +1,30 @@
 class Enemies
 {
-  //ad
   float enemyxPos;
   float enemyyPos;
-  int shotTime  = millis() + 10000 ;
-  float yShot;
-  float ySpeed = 1;
+  float laserYpos;
+  float enemySize = 25;
+  float laserWidth = 25;
+  float laserHeight = 50;
+  int shotTimer;
+  float enemyYspd = 0.5;
+  float laserySpeed = 5;
   public Enemies()
   {
-   enemyxPos = random(width);
+   enemyxPos = random(width-enemySize);
    enemyyPos = random(height/2);
+   laserYpos = random(height/2);
    
   }
   
   void drawEnemies()
   {
-    rect(enemyxPos,enemyyPos,25,25);
+    fill(#FA031F);
+    square(enemyxPos,enemyyPos,enemySize);
+  }
+  void moveEnemy()
+  {
+    enemyyPos += enemyYspd;
   }
  
   void formation()
@@ -25,18 +34,17 @@ class Enemies
   
   void drawLasers()
   {
-    
-    if (shotTime >= 10000)
+    fill(#03FA1D);
+    rect(enemyxPos,laserYpos,laserWidth,laserHeight);
+    if (laserYpos == width && shotTimer >= millis() + 1000)
     {
-     rect(enemyxPos,yShot,25,50);
-     shotTime = millis() + 10000;
+     rect(enemyxPos,laserYpos,25,50);
+     shotTimer += millis() + 1000;
     }
     
   }
   void moveLasers()
   {
-     enemyyPos += ySpeed;
-    yShot = random(height/2);
-  
+    laserYpos += laserySpeed;
   }
 }
