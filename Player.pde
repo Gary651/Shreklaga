@@ -1,23 +1,49 @@
 class Player
 {
-  //Player info
-  int playerSize = 50;
-  float xSpeed = 0;
-  float xPos = width/2;
- 
-  //Player shot info
-  float shotX = 0;
-  float shotY = 0;
- 
-  //Tracking booleans
-  boolean movingLeft = false;
-  boolean movingRight = false;
-  boolean shotOnScreen = false;
+  //Tracking variables
+  int playerSize;
+  float xSpeed;
+  float xPos;
+  float yPos;
+  PImage shrek;
+  PImage playerShot;
+  float shotX;
+  float shotY;
+  boolean movingLeft;
+  boolean movingRight;
+  boolean shotOnScreen;
+
+  public Player()
+  {
+    imageMode(CENTER);//Centers all images
+    
+    //Player info
+    playerSize = 50;
+    xSpeed = 0;
+    xPos = width/2;
+    yPos = height - 50;
+    
+    //Loads and appropriately sizes player
+    shrek = loadImage("shrek.png");
+    shrek.resize(playerSize,0);
+    
+    //Loads and appropriately sizes the player's shot
+    playerShot = loadImage("stankOnion.png");
+    playerShot.resize(35,0);
+    
+    //Sets the shot's x and y positions to zero so that they can be tampered with later
+    shotX = 0;
+    shotY = 0;
+    
+    //Sets all booleans to false so that they can track later in the code
+    movingLeft = false;
+    movingRight = false;
+    shotOnScreen = false;
+  }
 
   void drawPlayer()
   {
-    fill(0,255,0);//Makes the player green
-    ellipse(xPos,height-playerSize,playerSize,playerSize);//Draws the player
+    image(shrek,xPos,yPos);//Draws the player
   }
 
  
@@ -57,12 +83,11 @@ class Player
   {
     if(shotOnScreen)//If the shot is on the screen
     {
-      fill(255,255,255);//Shot color
-      ellipse(shotX, shotY, 25, 25);//Draws shot
+      image(playerShot,shotX,shotY);
     }
     shotY -= 5;//Makes the shot move
     shotY *= 0.95;//Creates shot friction
-    if(shotY < 0)
+    if(shotY < 0)//If the shot is not on the screen, set shotOnScreen to false and allow player to shoot
       shotOnScreen = false;
   }
  
@@ -70,6 +95,7 @@ class Player
   {
     if(!shotOnScreen)
     {
+      //Sets shot info
       shotOnScreen = true;
       shotX = xPos;
       shotY = height-playerSize;
