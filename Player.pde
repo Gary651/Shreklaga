@@ -1,6 +1,5 @@
 class Player
 {
-<<<<<<< HEAD
   //Tracking variables
   int playerSize;
   float xSpeed;
@@ -40,46 +39,13 @@ class Player
     movingLeft = false;
     movingRight = false;
     shotOnScreen = false;
-=======
-  //Player info
-  int playerSize = 50;
-  float xSpeed = 0;
-  float xPos = width/2;
- 
-  //Player shot info
-  int shotSize = 50;
-  float shotX = 0;
-  float shotY = 0;
- 
-  //Tracking booleans
-  boolean movingLeft = false;
-  boolean movingRight = false;
-  boolean shotOnScreen = false;
-  
-  //Player image
-  PImage player;
-  
-  //Shot image
-  PImage shot;
-  
-  public Player()
-  {
-    shot  = loadImage("stankOnion.png");
-    shot.resize(int(shotSize),0);
->>>>>>> 60a6869555dc355fc57590687d119f21a079a003
   }
 
   void drawPlayer()
   {
-<<<<<<< HEAD
     image(shrek,xPos,yPos);//Draws the player
-=======
     fill(0,255,0);//Makes the player green
-    player = loadImage("shrek.png");
-    player.resize(playerSize,0);
-    image(player,xPos,height-playerSize);//Draws the player
-    imageMode(CENTER);
->>>>>>> 60a6869555dc355fc57590687d119f21a079a003
+    image(shrek,xPos,yPos);//Draws the player
   }
 
  
@@ -119,12 +85,9 @@ class Player
   {
     if(shotOnScreen)//If the shot is on the screen
     {
-<<<<<<< HEAD
       image(playerShot,shotX,shotY);
-=======
       fill(255,255,255);//Shot color
-      image(shot, shotX, shotY);//Draws shot
->>>>>>> 60a6869555dc355fc57590687d119f21a079a003
+      image(playerShot, shotX, shotY);//Draws shot
     }
     shotY -= 5;//Makes the shot move
     shotY *= 0.95;//Creates shot friction
