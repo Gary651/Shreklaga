@@ -43,14 +43,13 @@ void draw()
   p.drawPlayer();
   for(int i = 0; i < 15; i++)
   {
-  e[i].drawEnemies();
-  e[i].drawLasers();
-  e[i].moveLasers();
+    e[i].drawEnemies();
+    e[i].drawLasers();
+    e[i].moveLasers();
   }
- 
   s.drawStars();
   p.drawPlayer();
-  h.points();
+  h.score();
   h.highScore();
   h.level();
   h.lives();

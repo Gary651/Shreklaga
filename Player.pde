@@ -6,6 +6,7 @@ class Player
   float xPos = width/2;
  
   //Player shot info
+  int shotSize = 50;
   float shotX = 0;
   float shotY = 0;
  
@@ -16,6 +17,15 @@ class Player
   
   //Player image
   PImage player;
+  
+  //Shot image
+  PImage shot;
+  
+  public Player()
+  {
+    shot  = loadImage("stankOnion.png");
+    shot.resize(int(shotSize),0);
+  }
 
   void drawPlayer()
   {
@@ -64,7 +74,7 @@ class Player
     if(shotOnScreen)//If the shot is on the screen
     {
       fill(255,255,255);//Shot color
-      ellipse(shotX, shotY, 25, 25);//Draws shot
+      image(shot, shotX, shotY);//Draws shot
     }
     shotY -= 5;//Makes the shot move
     shotY *= 0.95;//Creates shot friction
