@@ -16,6 +16,9 @@ class Player
   
   //Player image
   PImage player;
+  
+  //Shot image
+  PImage shot;
 
   void drawPlayer()
   {
