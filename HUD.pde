@@ -34,5 +34,6 @@ class HUD
     image(lives,width/12,height-50);
     image(lives,width/10,height-50);
     image(lives,width/8.5,height-50);
+    imageMode(CENTER);
   }
 }

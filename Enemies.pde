@@ -36,8 +36,6 @@ class Enemies
   
   void drawEnemies()
   {
-    
-    
     enemy.resize(int(enemySize),0);
     image(enemy,enemyxPos,enemyyPos);
     imageMode(CENTER);
