@@ -7,10 +7,10 @@ class HUD
     lives = loadImage("heart.png");
     lives.resize(int(size),0);
   }
-  void points()
+  void score()
   {
     fill(255);
-    text("Points: ", width-200, 50);
+    text("Score: ", width-200, 50);
     textSize(25);
   }
   
