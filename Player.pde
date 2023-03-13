@@ -13,11 +13,17 @@ class Player
   boolean movingLeft = false;
   boolean movingRight = false;
   boolean shotOnScreen = false;
+  
+  //Player image
+  PImage player;
 
   void drawPlayer()
   {
     fill(0,255,0);//Makes the player green
-    ellipse(xPos,height-playerSize,playerSize,playerSize);//Draws the player
+    player = loadImage("shrek.png");
+    player.resize(playerSize,0);
+    image(player,xPos,height-playerSize);//Draws the player
+    imageMode(CENTER);
   }
 
  
