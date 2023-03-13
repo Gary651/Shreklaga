@@ -54,7 +54,7 @@ class Enemies
   
   void drawLasers()
   {
-    laser.resize(int(laser),0);
+    laser.resize(int(laserWidth)*2,0);
     image(laser,enemyxPos,laserYpos);
     if (laserYpos == width && shotTimer >= millis() + 1000)
     {

@@ -1,5 +1,12 @@
 class HUD
 {
+  int size = 25;
+  PImage lives;
+  public HUD()
+  {
+    lives = loadImage("heart.png");
+    lives.resize(int(size),0);
+  }
   void points()
   {
     fill(255);
@@ -24,8 +31,8 @@ class HUD
   void lives()
   {
     fill(255);
-    circle(width/12,height-50,20);
-    circle(width/10,height-50,20);
-    circle(width/8.5,height-50,20);
+    image(lives,width/12,height-50);
+    image(lives,width/10,height-50);
+    image(lives,width/8.5,height-50);
   }
 }
