@@ -62,6 +62,8 @@ void keyPressed()
     p.addThrust(key, true);
   if(key == 'w')
     p.shoot();
+  if(key == 'g')
+    p.switchPlayer();
 }
 
 void keyReleased()
