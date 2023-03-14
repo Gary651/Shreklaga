@@ -61,7 +61,17 @@ void keyPressed()
   if(key == 'a' || key == 'd')
     p.addThrust(key, true);
   if(key == 'w')
+  {
     p.shoot();
+    ac = new AudioContext();
+    Sample sample = SampleManager.sample(dataPath("laser.mp3"));
+    music = new GranularSamplePlayer(ac, sample);
+    Gain g = new Gain(ac, 2, 1.0);
+    g.addInput(music);
+    ac.out.addInput(g);
+    ac.start();
+  }
+   
   if(key == 'g')
     p.switchPlayer();
 }
@@ -70,4 +80,5 @@ void keyReleased()
 {
   if(key == 'a' || key == 'd')
     p.addThrust(key,false);
+
 }
