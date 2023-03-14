@@ -63,7 +63,6 @@ void keyPressed()
   if(key == 'w')
   {
     p.shoot();
-<<<<<<< HEAD
     ac = new AudioContext();
     Sample sample = SampleManager.sample(dataPath("laser.mp3"));
     music = new GranularSamplePlayer(ac, sample);
@@ -73,10 +72,8 @@ void keyPressed()
     ac.start();
   }
    
-=======
   if(key == 'g')
     p.switchPlayer();
->>>>>>> 4f19af710ec9b41443ee4e9931451e1334b2d101
 }
 
 void keyReleased()
