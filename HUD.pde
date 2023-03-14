@@ -1,6 +1,7 @@
 class HUD
 {
   int size = 25;
+  public int livesLost = 0;
   PImage lives;
   public HUD()
   {

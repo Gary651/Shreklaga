@@ -2,7 +2,7 @@ class Enemies
 {
   public float enemyxPos;
   public float enemyyPos;
-  public float laserYpos;
+  public float enemyLaserYpos;
   float enemySize = 50;
   float laserWidth = 25;
   float laserHeight = 50;
@@ -14,9 +14,9 @@ class Enemies
   
   public Enemies()
   {
-   enemyxPos = random(width-enemySize);
+   enemyxPos = random(width);
    enemyyPos = random(height/2);
-   laserYpos = random(height/2);
+   enemyLaserYpos = random(height/2);
    shotTimer = 0;
     
     switch( int(random(4)) )
@@ -55,18 +55,18 @@ class Enemies
   void drawLasers()
   {
     laser.resize(int(laserWidth)*2,0);
-    image(laser,enemyxPos,laserYpos);
+    image(laser,enemyxPos,enemyLaserYpos);
     
-    if (laserYpos > height && shotTimer <= millis())
+    if (enemyLaserYpos > height && shotTimer <= millis())
     {
-     //image(laser,enemyxPos,laserYpos);
-     laserYpos = enemyyPos;
-     shotTimer = millis() + 10000;
+     //image(laser,enemyxPos,enemyLaserYpos);
+     enemyLaserYpos = enemyyPos;
+     shotTimer = millis() + random(10000);
     }
     
   }
   void moveLasers()
   {
-    laserYpos += laserySpeed;
+    enemyLaserYpos += laserySpeed;
   }
 }

@@ -36,10 +36,8 @@ void setup()
 void draw()
 {
   background(0);
-  s.drawStars();
   p.drawShot();
   p.movePlayer();
-  s.drawStars();
   p.drawPlayer();
   for(int i = 0; i < 15; i++)
   {
@@ -47,12 +45,24 @@ void draw()
     e[i].moveLasers();
     e[i].drawLasers();
   }
+  if(e[1].enemyLaserYpos == p.playerY-p.playerSize && h.livesLost == 3)
+  {
+    fill(#FA3535);
+    text("GAME OVER!", width/2, height/2);
+    textSize(100);
+  }
+  if(p.shotY == e[1].enemyyPos && p.shotX == e[1].enemyxPos)
+  {
+    
+  }
   s.drawStars();
   p.drawPlayer();
   h.score();
   h.highScore();
   h.level();
   h.lives();
+  s.drawStars();
+  
 
 }
 
