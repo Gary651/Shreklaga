@@ -1,8 +1,8 @@
 class Enemies
 {
-  float enemyxPos;
-  float enemyyPos;
-  float laserYpos;
+  public float enemyxPos;
+  public float enemyyPos;
+  public float laserYpos;
   float enemySize = 50;
   float laserWidth = 25;
   float laserHeight = 50;
