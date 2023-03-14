@@ -44,8 +44,8 @@ void draw()
   for(int i = 0; i < 15; i++)
   {
     e[i].drawEnemies();
-    e[i].drawLasers();
     e[i].moveLasers();
+    e[i].drawLasers();
   }
   s.drawStars();
   p.drawPlayer();
@@ -53,7 +53,7 @@ void draw()
   h.highScore();
   h.level();
   h.lives();
-  
+
 }
 
 void keyPressed()
@@ -63,6 +63,7 @@ void keyPressed()
   if(key == 'w')
   {
     p.shoot();
+<<<<<<< HEAD
     ac = new AudioContext();
     Sample sample = SampleManager.sample(dataPath("laser.mp3"));
     music = new GranularSamplePlayer(ac, sample);
@@ -72,6 +73,10 @@ void keyPressed()
     ac.start();
   }
    
+=======
+  if(key == 'g')
+    p.switchPlayer();
+>>>>>>> 4f19af710ec9b41443ee4e9931451e1334b2d101
 }
 
 void keyReleased()

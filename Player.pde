@@ -1,39 +1,65 @@
 class Player
 {
-  //Player info
-  int playerSize = 50;
-  float xSpeed = 0;
-  float xPos = width/2;
- 
-  //Player shot info
-  int shotSize = 50;
-  float shotX = 0;
-  float shotY = 0;
- 
-  //Tracking booleans
-  boolean movingLeft = false;
-  boolean movingRight = false;
-  boolean shotOnScreen = false;
-  
-  //Player image
-  PImage player;
-  
-  //Shot image
-  PImage shot;
-  
+  //Tracking variables
+  int playerSize;
+  float xSpeed;
+  float xPos;
+  float yPos;
+  PImage shrek;
+  PImage shrekShot;
+  PImage gingy;
+  PImage gingyShot;
+  float shotX;
+  float shotY;
+  boolean movingLeft;
+  boolean movingRight;
+  boolean shotOnScreen;
+  boolean playingAsShrek;
+  boolean playingAsGingy;
+
   public Player()
   {
-    shot  = loadImage("stankOnion.png");
-    shot.resize(int(shotSize),0);
+    imageMode(CENTER);//Centers all images
+    
+    //Player info
+    playerSize = 50;
+    xSpeed = 0;
+    xPos = width/2;
+    yPos = height - 50;
+    
+    //Loads and appropriately sizes player
+    shrek = loadImage("shrek.png");
+    shrek.resize(playerSize,0);
+    gingy = loadImage("gingerbreadMan.png");
+    gingy.resize(playerSize,0);
+    
+    //Loads and appropriately sizes the player's shot
+    shrekShot = loadImage("stankOnion.png");
+    shrekShot.resize(35,0);
+    gingyShot = loadImage("gumDrop.png");
+    gingyShot.resize(35,0);
+    
+    //Sets the shot's x and y positions to zero so that they can be tampered with later
+    shotX = 0;
+    shotY = 0;
+    
+    //Sets all moving/shot booleans to false so that they can track later in the code
+    movingLeft = false;
+    movingRight = false;
+    shotOnScreen = false;
+    
+    /*Sets default character to Shrek
+      Sets "playingAsGinger" to false to allow the user to switch characters*/
+    playingAsShrek = true;
+    playingAsGingy = false;
   }
 
   void drawPlayer()
   {
-    fill(0,255,0);//Makes the player green
-    player = loadImage("shrek.png");
-    player.resize(playerSize,0);
-    image(player,xPos,height-playerSize);//Draws the player
-    imageMode(CENTER);
+    if(playingAsShrek)//If the user has chosen to play as Shrek
+      image(shrek,xPos,yPos);//Draws Shrek
+    if(playingAsGingy)//If the user has chosen to play as Gingerbread Man
+      image(gingy,xPos,yPos);//Draws Gingerbread Man
   }
 
  
@@ -71,14 +97,14 @@ class Player
  
   public void drawShot()
   {
-    if(shotOnScreen)//If the shot is on the screen
-    {
-      fill(255,255,255);//Shot color
-      image(shot, shotX, shotY);//Draws shot
-    }
+    if(shotOnScreen && playingAsShrek)//If the shot is on the screen and the player has chosen to play as Shrek
+      image(shrekShot, shotX, shotY);//Draws Shrek's shot
+    if(shotOnScreen && playingAsGingy)//If the shot is on the screen and the player has chosen to play as Gingerbread Man
+      image(gingyShot,shotX,shotY);//Draws Gingy's shot
+    
     shotY -= 5;//Makes the shot move
     shotY *= 0.95;//Creates shot friction
-    if(shotY < 0)
+    if(shotY < 0)//If the shot is not on the screen, set shotOnScreen to false and allow player to shoot
       shotOnScreen = false;
   }
  
@@ -86,9 +112,24 @@ class Player
   {
     if(!shotOnScreen)
     {
+      //Sets shot info
       shotOnScreen = true;
       shotX = xPos;
       shotY = height-playerSize;
     }
+  }
+  
+  public void switchPlayer()
+  {
+    if(playingAsShrek)//Switches player from Shrek to Gingerbread Man
+     {
+       playingAsShrek = false;
+       playingAsGingy = true;
+     }
+     else if(playingAsGingy)//Switches player from Gingerbread Man to Shrek
+     {
+       playingAsGingy = false;
+       playingAsShrek = true;
+     }
   }
 }

@@ -6,16 +6,18 @@ class Enemies
   float enemySize = 50;
   float laserWidth = 25;
   float laserHeight = 50;
-  int shotTimer;
+  float shotTimer;
   float enemyYspd = 0.5;
   float laserySpeed = 5;
   PImage enemy;
   PImage laser;
+  
   public Enemies()
   {
    enemyxPos = random(width-enemySize);
    enemyyPos = random(height/2);
    laserYpos = random(height/2);
+   shotTimer = 0;
     
     switch( int(random(4)) )
     {
@@ -54,10 +56,12 @@ class Enemies
   {
     laser.resize(int(laserWidth)*2,0);
     image(laser,enemyxPos,laserYpos);
-    if (laserYpos == width && shotTimer >= millis() + 1000)
+    
+    if (laserYpos > height && shotTimer <= millis())
     {
-     image(laser,enemyxPos,laserYpos);
-     shotTimer += millis() + 1000;
+     //image(laser,enemyxPos,laserYpos);
+     laserYpos = enemyyPos;
+     shotTimer = millis() + 10000;
     }
     
   }
