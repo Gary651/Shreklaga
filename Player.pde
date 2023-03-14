@@ -1,10 +1,11 @@
 class Player
 {
-  //Tracking variables
-  int playerSize;
-  float xSpeed;
-  float xPos;
-  float yPos;
+  /*Tracking variables
+    Some variables are set to public in order to work with collision*/
+  public int playerSize;
+  public float xSpeed;
+  public float playerX;
+  public float playerY;
   PImage shrek;
   PImage shrekShot;
   PImage gingy;
@@ -13,7 +14,7 @@ class Player
   float shotY;
   boolean movingLeft;
   boolean movingRight;
-  boolean shotOnScreen;
+  public boolean shotOnScreen;
   boolean playingAsShrek;
   boolean playingAsGingy;
 
@@ -24,8 +25,8 @@ class Player
     //Player info
     playerSize = 50;
     xSpeed = 0;
-    xPos = width/2;
-    yPos = height - 50;
+    playerX = width/2;
+    playerY = height - 50;
     
     //Loads and appropriately sizes player
     shrek = loadImage("shrek.png");
@@ -57,9 +58,9 @@ class Player
   void drawPlayer()
   {
     if(playingAsShrek)//If the user has chosen to play as Shrek
-      image(shrek,xPos,yPos);//Draws Shrek
+      image(shrek,playerX,playerY);//Draws Shrek
     if(playingAsGingy)//If the user has chosen to play as Gingerbread Man
-      image(gingy,xPos,yPos);//Draws Gingerbread Man
+      image(gingy,playerX,playerY);//Draws Gingerbread Man
   }
 
  
@@ -85,14 +86,14 @@ class Player
        xSpeed += .5;
      
      //Makes it to where the player cannot move out of bounds
-     if(xPos >= width - (playerSize/2))
+     if(playerX >= width - (playerSize/2))
        xSpeed = min(0,-xSpeed);
-     if(xPos <= playerSize/2)
+     if(playerX <= playerSize/2)
        xSpeed = max(0,-xSpeed);
      
      xSpeed *= 0.95;//Creates friction
        
-     xPos += xSpeed;//Changes the xPos by the xSpeed
+     playerX += xSpeed;//Changes the xPos by the xSpeed
   }
  
   public void drawShot()
@@ -114,7 +115,7 @@ class Player
     {
       //Sets shot info
       shotOnScreen = true;
-      shotX = xPos;
+      shotX = playerX;
       shotY = height-playerSize;
     }
   }
