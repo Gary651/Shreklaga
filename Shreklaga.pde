@@ -44,8 +44,8 @@ void draw()
   for(int i = 0; i < 15; i++)
   {
     e[i].drawEnemies();
-    e[i].drawLasers();
     e[i].moveLasers();
+    e[i].drawLasers();
   }
   s.drawStars();
   p.drawPlayer();
@@ -53,7 +53,7 @@ void draw()
   h.highScore();
   h.level();
   h.lives();
-  
+
 }
 
 void keyPressed()
