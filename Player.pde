@@ -6,6 +6,7 @@ class Player
   public float xSpeed;
   public float playerX;
   public float playerY;
+  public boolean shotOnScreen;
   PImage shrek;
   PImage shrekShot;
   PImage gingy;
@@ -14,7 +15,6 @@ class Player
   float shotY;
   boolean movingLeft;
   boolean movingRight;
-  public boolean shotOnScreen;
   boolean playingAsShrek;
   boolean playingAsGingy;
 
@@ -139,5 +139,17 @@ class Player
        playingAsGingy = false;
        playingAsShrek = true;
      }
+  }
+  
+  public void playerHit()
+  {
+    for(int i = 0; i < e.length; i++)
+    {
+      if( dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= 25)
+      {
+        h.playerLives--;
+        e[i].enemyLaserYpos = e[i].enemyyPos;
+      }
+    }
   }
 }

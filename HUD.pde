@@ -1,7 +1,7 @@
 class HUD
 {
+  public int playerLives = 3;
   int size = 25;
-  public int livesLost = 0;
   PImage lives;
   public HUD()
   {
@@ -31,10 +31,21 @@ class HUD
   
   void lives()
   {
-    fill(255);
+    imageMode(CENTER);
+    for(int i = 1; i <= playerLives; i++)
+    {
+    
+    }
     image(lives,width/12,height-50);
     image(lives,width/10,height-50);
     image(lives,width/8.5,height-50);
-    imageMode(CENTER);
+  }
+  
+  public void gameOverScreen()
+  {
+    fill(#FA3535);
+    textAlign(CENTER);
+    textSize(300);
+    text("GAME OVER!", width/2, height/2);
   }
 }
