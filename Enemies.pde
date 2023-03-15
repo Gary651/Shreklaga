@@ -3,7 +3,7 @@ class Enemies
   public float enemyxPos;
   public float enemyyPos;
   public float enemyLaserYpos;
-  float enemySize = 50;
+  public float enemySize = 50;
   float laserWidth = 25;
   float laserHeight = 50;
   float shotTimer;

@@ -117,6 +117,7 @@ class Player
       shotOnScreen = true;
       shotX = playerX;
       shotY = height-playerSize;
+      //Music info
       ac = new AudioContext();
       Sample sample = SampleManager.sample(dataPath("laser.mp3"));
       music = new GranularSamplePlayer(ac, sample);

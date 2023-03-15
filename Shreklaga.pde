@@ -56,6 +56,14 @@ void draw()
     h.highScore();
     h.level();
     h.lives();
+    for(int i = 0; i < e.length; i++)
+    {
+      if(dist(e[i].enemyxPos, e[i].enemyyPos, p.shotX, p.shotY) <= (e[i].enemySize/2))
+      {
+        p.shotOnScreen = false;
+        h.score = h.score + 50;
+      }
+    }
   }
   else
     h.gameOverScreen();
