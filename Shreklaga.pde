@@ -62,7 +62,6 @@ void draw()
   h.level();
   h.lives();
   s.drawStars();
-  
 
 }
 
@@ -75,6 +74,12 @@ void keyPressed()
    
   if(key == 'g')
     p.switchPlayer();
+    
+  if(key == 'r')
+    ac.stop();
+    
+  if(key == 't')
+    ac.start();
 }
 
 void keyReleased()
