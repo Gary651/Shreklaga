@@ -3,7 +3,7 @@ class Enemies
   public float enemyxPos;
   public float enemyyPos;
   public float enemyLaserYpos;
-  public float enemySize = 50;
+  public float enemySize = 60;
   float laserWidth = 25;
   float laserHeight = 50;
   float shotTimer;
@@ -14,9 +14,9 @@ class Enemies
   
   public Enemies()
   {
-   enemyxPos = random(width);
-   enemyyPos = random(height/2);
-   enemyLaserYpos = random(height/2);
+   enemyxPos = random(enemySize/2,width-(enemySize/2));
+   enemyyPos = random(enemySize/2,height/2);
+   enemyLaserYpos = random(enemySize/2,height/2);
    shotTimer = 0;
     
     switch( int(random(4)) )
@@ -65,8 +65,18 @@ class Enemies
     }
     
   }
+  
   void moveLasers()
   {
     enemyLaserYpos += laserySpeed;
+  }
+  
+  void enemyHit()
+  {
+    if(dist(enemyxPos, enemyyPos, p.shotX, p.shotY) <= (enemySize/2) && p.shotOnScreen)
+    {
+      p.shotOnScreen = false;
+      h.score = h.score + 50;
+    }
   }
 }

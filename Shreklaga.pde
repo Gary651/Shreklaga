@@ -26,7 +26,6 @@ void setup()
   s = new Stars();
   p = new Player();
   h = new HUD();
-  //e = new Enemies();
   for(int i = 0; i < 15; i++)
   {
     e[i] = new Enemies();
@@ -50,20 +49,13 @@ void draw()
       e[i].drawEnemies();
       e[i].moveLasers();
       e[i].drawLasers();
+      e[i].enemyHit();
     }
     p.playerHit();
     h.score();
     h.highScore();
     h.level();
     h.lives();
-    for(int i = 0; i < e.length; i++)
-    {
-      if(dist(e[i].enemyxPos, e[i].enemyyPos, p.shotX, p.shotY) <= (e[i].enemySize/2))
-      {
-        p.shotOnScreen = false;
-        h.score = h.score + 50;
-      }
-    }
   }
   else
     h.gameOverScreen();
@@ -87,5 +79,4 @@ void keyReleased()
 {
   if(key == 'a' || key == 'd')
     p.addThrust(key,false);
-
 }

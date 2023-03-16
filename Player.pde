@@ -23,7 +23,7 @@ class Player
     imageMode(CENTER);//Centers all images
     
     //Player info
-    playerSize = 50;
+    playerSize = 60;
     xSpeed = 0;
     playerX = width/2;
     playerY = height - 50;
@@ -103,7 +103,7 @@ class Player
     if(shotOnScreen && playingAsGingy)//If the shot is on the screen and the player has chosen to play as Gingerbread Man
       image(gingyShot,shotX,shotY);//Draws Gingy's shot
     
-    shotY -= 5;//Makes the shot move
+    shotY -= 2.5;//Makes the shot move
     shotY *= 0.95;//Creates shot friction
     if(shotY < 0)//If the shot is not on the screen, set shotOnScreen to false and allow player to shoot
       shotOnScreen = false;
