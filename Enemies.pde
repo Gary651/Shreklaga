@@ -77,6 +77,14 @@ class Enemies
     {
       p.shotOnScreen = false;
       h.score = h.score + 50;
+      if(h.score <= h.highScore)
+      {
+        h.highScore = h.highScore + 50;
+      }
+      else
+      {
+        
+      }
     }
   }
 }

@@ -2,6 +2,7 @@ class HUD
 {
   public int playerLives = 3;
   public int score;
+  public int highScore;
   public float heartxPos;
   int size = 25;
   PImage lives;
@@ -21,9 +22,18 @@ class HUD
   
   void highScore()
   {
+    
     fill(255);
-    text("HighScore: ", width-200, 80);
+    text("HighScore: " + highScore, width-200, 80);
     textSize(25);
+    
+  }
+  void savingHighScore()
+  {
+    PrintWriter hScore = createWriter( "High Score.txt" );
+    hScore.println(highScore);
+    hScore.flush();
+    hScore.close();
   }
   
   void level()
