@@ -77,6 +77,10 @@ void keyPressed()
     p.shoot();
   if(key == 'g')
     p.switchPlayer();
+  if(key == 'r')
+    ac.stop();
+  if(key == 't')
+    ac.start();
 }
 
 void keyReleased()
