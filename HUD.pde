@@ -2,6 +2,7 @@ class HUD
 {
   public int playerLives = 3;
   public int score;
+  public float heartxPos;
   int size = 25;
   PImage lives;
   public HUD()
@@ -9,6 +10,7 @@ class HUD
     lives = loadImage("heart.png");
     lives.resize(int(size),0);
     score = 0;
+    heartxPos = 0;
   }
   void score()
   {
@@ -36,11 +38,14 @@ class HUD
     imageMode(CENTER);
     for(int i = 1; i <= playerLives; i++)
     {
-    
+      if(i == 1)
+        heartxPos = width/12;
+      if(i == 2)
+        heartxPos = width/10;
+      if(i == 3)
+        heartxPos = width/8.5;
+      image(lives, heartxPos, height-50);
     }
-    image(lives,width/12,height-50);
-    image(lives,width/10,height-50);
-    image(lives,width/8.5,height-50);
   }
   
   public void gameOverScreen()
