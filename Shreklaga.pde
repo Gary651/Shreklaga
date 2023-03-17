@@ -13,7 +13,7 @@ void setup()
 {
   //plays sounds
   ac = new AudioContext();
-  Sample sample = SampleManager.sample(dataPath("background.mp3");
+  Sample sample = SampleManager.sample(dataPath("background.mp3"));
   music = new GranularSamplePlayer(ac, sample);
   music.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
   Gain g = new Gain(ac, 2, 1.0);
