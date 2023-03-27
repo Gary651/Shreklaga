@@ -5,6 +5,7 @@ class Enemies
   public float enemyyPos;
   public float enemyLaserYpos;
   public float enemySize = 60;
+  public boolean laserOnScreen = true;
   float laserWidth = 25;
   float laserHeight = 50;
   float shotTimer;
@@ -65,14 +66,21 @@ class Enemies
   
   void drawLasers()
   {
-    laser.resize(int(laserWidth)*2,0);//Makes the laser double of it's original size
-    image(laser,enemyxPos,enemyLaserYpos);//Draws laser
+    if(enemyLaserYpos > height)
+      laserOnScreen = false;
     
-    if(enemyLaserYpos > height && shotTimer <= millis())//Timer for enemy shots(happens when the laser's y position is off of the screen)
+    if(laserOnScreen)//If the laser is on screen
+    {
+      laser.resize(int(laserWidth)*2,0);//Makes the laser double of it's original size
+      image(laser,enemyxPos,enemyLaserYpos);//Draws laser
+    }
+    
+    if(!laserOnScreen)//If there is no laser on screen
     {
       //image(laser,enemyxPos,enemyLaserYpos);
       enemyLaserYpos = enemyyPos;//Sets the laser's y position to the enemy's y position
-      shotTimer = millis() + random(10000);//Makes enemy reshoot every 10 seconds
+      shotTimer = millis() + random(10000);//Makes the shot timer for the enemy
+      laserOnScreen = true;//Says that there is a laser on screen
     }
   }
   

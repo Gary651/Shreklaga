@@ -5,11 +5,15 @@ class HUD
   public int highScore;
   public float heartxPos;
   int size = 25;
-  PImage lives;
+  PImage shrekLives;
+  PImage gingyLives;
+  
   public HUD()
   {
-    lives = loadImage("heart.png");
-    lives.resize(int(size),0);
+    shrekLives = loadImage("heart.png");
+    shrekLives.resize(size, 0);
+    gingyLives = loadImage("candyHeart.png");
+    gingyLives.resize(size, 0);
     score = 0;
     heartxPos = 0;
   }
@@ -54,7 +58,10 @@ class HUD
         heartxPos = width/10;
       if(i == 3)
         heartxPos = width/8.5;
-      image(lives, heartxPos, height-50);
+      if(p.playingAsShrek)
+        image(shrekLives, heartxPos, height-50);
+      if(p.playingAsGingy)
+        image(gingyLives, heartxPos, height-50);
     }
   }
   

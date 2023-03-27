@@ -149,7 +149,7 @@ class Player
       if( dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= 25)
       {
         h.playerLives--;
-        e[i].enemyLaserYpos = e[i].enemyyPos;
+        e[i].laserOnScreen = false;
       }
     }
   }
