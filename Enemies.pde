@@ -5,7 +5,8 @@ class Enemies
   public float enemyyPos;
   public float enemyLaserYpos;
   public float enemySize = 60;
-  float laserWidth = 25;
+  public boolean laserOnScreen = true;
+  float laserWidth = 35;
   float laserHeight = 50;
   float shotTimer;
   float enemyYspd = 0.5;
@@ -29,17 +30,22 @@ class Enemies
     {
       case 0:
         enemy = loadImage("fairyGodMother.png");
+        laser = loadImage("spellOrb.png");
         break;
       case 1:
         enemy = loadImage("lordFarquad.png");
+        laser = loadImage("sword.png");
         break;
       case 2:
         enemy = loadImage("princeCharming.png");
+        laser = loadImage("charmingJr.png");
         break;
       default:
         enemy = loadImage("rumpelstiltskin.png");
+        laser = loadImage("coinShot.png");
+        break;
     }
-    laser = loadImage("stankOnion.png");//Sets all enemy's shots to the stank onion PImage
+    laser.resize(int(laserWidth),0);//Resizes all lasers to 35
   }
   
   void drawEnemies()
@@ -65,14 +71,21 @@ class Enemies
   
   void drawLasers()
   {
-    laser.resize(int(laserWidth)*2,0);//Makes the laser double of it's original size
-    image(laser,enemyxPos,enemyLaserYpos);//Draws laser
+    if(enemyLaserYpos > height)
+      laserOnScreen = false;
     
-    if(enemyLaserYpos > height && shotTimer <= millis())//Timer for enemy shots(happens when the laser's y position is off of the screen)
+    if(laserOnScreen)//If the laser is on screen
+    {
+      imageMode(CENTER);
+      image(laser,enemyxPos,enemyLaserYpos);//Draws laser
+    }
+    
+    if(!laserOnScreen)//If there is no laser on screen
     {
       //image(laser,enemyxPos,enemyLaserYpos);
       enemyLaserYpos = enemyyPos;//Sets the laser's y position to the enemy's y position
-      shotTimer = millis() + random(10000);//Makes enemy reshoot every 10 seconds
+      shotTimer = millis() + random(10000);//Makes the shot timer for the enemy
+      laserOnScreen = true;//Says that there is a laser on screen
     }
   }
   

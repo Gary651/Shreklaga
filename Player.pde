@@ -146,10 +146,11 @@ class Player
   {
     for(int i = 0; i < e.length; i++)
     {
-      if( dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= 25)
+      //If the enemy shot is within the radius of the player and the enemy's laser is on screen
+      if( dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen)
       {
-        h.playerLives--;
-        e[i].enemyLaserYpos = e[i].enemyyPos;
+        h.playerLives--;//Remove one of the player's lives
+        e[i].laserOnScreen = false;//Remove the enemy's shot from the screen
       }
     }
   }
