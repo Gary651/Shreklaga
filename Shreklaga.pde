@@ -49,13 +49,13 @@ void draw()
       e[i].drawEnemies();
       e[i].moveLasers();
       e[i].drawLasers();
-      e[i].enemyHit();
+      e[i].enemyHit();//Checks to see if enemy was hit
     }
-    p.playerHit();
-    h.score();
-    h.highScore();
-    h.level();
-    h.lives();
+    p.playerHit();//Checks to see if player was hit
+    h.score();//Displays score
+    h.highScore();//Displays the highest score
+    h.level();//Displays the level
+    h.lives();//Displays how many lives the player has
   }
   else
     h.gameOverScreen();

@@ -6,7 +6,7 @@ class Enemies
   public float enemyLaserYpos;
   public float enemySize = 60;
   public boolean laserOnScreen = true;
-  float laserWidth = 25;
+  float laserWidth = 35;
   float laserHeight = 50;
   float shotTimer;
   float enemyYspd = 0.5;
@@ -30,17 +30,22 @@ class Enemies
     {
       case 0:
         enemy = loadImage("fairyGodMother.png");
+        laser = loadImage("spellOrb.png");
         break;
       case 1:
         enemy = loadImage("lordFarquad.png");
+        laser = loadImage("sword.png");
         break;
       case 2:
         enemy = loadImage("princeCharming.png");
+        laser = loadImage("charmingJr.png");
         break;
       default:
         enemy = loadImage("rumpelstiltskin.png");
+        laser = loadImage("coinShot.png");
+        break;
     }
-    laser = loadImage("stankOnion.png");//Sets all enemy's shots to the stank onion PImage
+    laser.resize(int(laserWidth),0);//Resizes all lasers to 35
   }
   
   void drawEnemies()
@@ -71,7 +76,7 @@ class Enemies
     
     if(laserOnScreen)//If the laser is on screen
     {
-      laser.resize(int(laserWidth)*2,0);//Makes the laser double of it's original size
+      imageMode(CENTER);
       image(laser,enemyxPos,enemyLaserYpos);//Draws laser
     }
     
