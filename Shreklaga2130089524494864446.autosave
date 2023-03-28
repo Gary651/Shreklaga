@@ -11,14 +11,24 @@ boolean playerHasLives;
 public Enemies [] e = new Enemies[15];
 void setup()
 {
+  /*
   //plays sounds
   ac = new AudioContext();
-  Sample sample = SampleManager.sample(dataPath("allStar.mp3"));
+  Sample sample = SampleManager.sample(dataPath("background.mp3"));
   music = new GranularSamplePlayer(ac, sample);
+  music.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
   Gain g = new Gain(ac, 2, 1.0);
   g.addInput(music);
   ac.out.addInput(g);
   ac.start();
+  */
+  switch( int(random(2)) )
+    {
+      case 0:
+        music = loadSong("background.mp3");
+        break;
+      default:
+        music = loadSong("allStar.mp3");
   
   fullScreen();
   s = new Stars();
@@ -40,7 +50,6 @@ void draw()
   {
     background(0);
     s.drawStars();
-    h.loadHighScore();
     p.drawShot();
     p.movePlayer();
     p.drawPlayer();
@@ -49,13 +58,13 @@ void draw()
       e[i].drawEnemies();
       e[i].moveLasers();
       e[i].drawLasers();
-      e[i].enemyHit();//Checks to see if enemy was hit
+      e[i].enemyHit();
     }
-    p.playerHit();//Checks to see if player was hit
-    h.score();//Displays score
-    h.highScore();//Displays the highest score
-    h.level();//Displays the level
-    h.lives();//Displays how many lives the player has
+    p.playerHit();
+    h.score();
+    h.highScore();
+    h.level();
+    h.lives();
   }
   else
     h.gameOverScreen();
@@ -73,8 +82,6 @@ void keyPressed()
     ac.stop();
   if(key == 't')
     ac.start();
-  if(key == 's')
-    h.saveHighScore();
 }
 
 void keyReleased()
