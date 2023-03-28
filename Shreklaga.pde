@@ -41,6 +41,7 @@ void draw()
   {
     background(0);
     s.drawStars();
+    h.loadHighScore();
     p.drawShot();
     p.movePlayer();
     p.drawPlayer();
@@ -73,6 +74,8 @@ void keyPressed()
     ac.stop();
   if(key == 't')
     ac.start();
+  if(key == 's')
+    h.saveHighScore();
 }
 
 void keyReleased()

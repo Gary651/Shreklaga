@@ -32,17 +32,25 @@ class HUD
   {
     //Displays the high score in the right hand of the screen
     fill(255);
+    highScore = score;
     text("HighScore: " + highScore, width-200, 80);
     textSize(25);
     
   }
   
-  void savingHighScore()//Not done
+  void saveHighScore()//Not done
   {
+    //save the high score 
     PrintWriter hScore = createWriter( "High Score.txt" );
     hScore.println(highScore);
     hScore.flush();
     hScore.close();
+  }
+  void loadHighScore()
+  {
+    //load the high score
+    String [] highScoreSave = loadStrings("High Score.txt");
+    highScore = Integer.parseInt(highScoreSave[0]);
   }
   
   void level()
