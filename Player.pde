@@ -103,11 +103,11 @@ class Player
     }
     
     if(goingOffscreen)
-    {
       playerOffset += 2.5;
-    }
+    else if(playerOffset > 0)
+     playerOffset *= 0.9;
     
-    if(playerOffset >= 100)
+    if(playerOffset >= 150)
       goingOffscreen = false;
   }
  
@@ -161,14 +161,21 @@ class Player
   {
     for(int i = 0; i < e.length; i++)
     {
-      //If the enemy shot is within the radius of the player and the enemy's laser is on screen
-      if( dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen)
+      //If the enemy shot is within the radius of the player and the enemy's laser is on screen and the player is on the screen
+      if( dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen && !goingOffscreen)
       {
         h.playerLives--;//Remove one of the player's lives
         shotOnScreen = false;//Takes player's shot off of screen
         e[i].laserOnScreen = false;//Remove the enemy's shot from the screen
-        goingOffscreen = true;
         goingOffscreen = true;//Says that the player is going offscreen
+        return;//Ends void method
+      }
+      //If the player gets hit while going off of screen
+      else if(goingOffscreen && dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen && playerOffset > 0)
+      {
+        h.playerLives = h.playerLives;//Makes the player's lives unchangable
+        shotOnScreen = false;//Takes player's shot off of screen
+        goingOffscreen = true;
         return;//Ends void method
       }
     }

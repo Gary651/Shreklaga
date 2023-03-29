@@ -67,7 +67,7 @@ void keyPressed()
 {
   if(key == 'a' || key == 'd')
     p.addThrust(key, true);
-  if(key == 'w')
+  if(key == 'w' && !p.goingOffscreen)
     p.shoot();
   if(key == 'g')
     p.switchPlayer();
