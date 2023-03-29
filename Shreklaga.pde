@@ -15,6 +15,8 @@ void setup()
   ac = new AudioContext();
   Sample sample = SampleManager.sample(dataPath("allStar.mp3"));
   music = new GranularSamplePlayer(ac, sample);
+  //Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
+  //music = new GranularSamplePlayer(ac, sample1);
   Gain g = new Gain(ac, 2, 1.0);
   g.addInput(music);
   ac.out.addInput(g);
@@ -75,6 +77,16 @@ void keyPressed()
     ac.start();
   if(key == 's')
     h.saveHighScore();
+  if(key == 'l')
+  {
+    ac = new AudioContext();
+    Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
+    music = new GranularSamplePlayer(ac, sample1);
+    Gain g = new Gain(ac, 2, 1.0);
+    g.addInput(music);
+    ac.out.addInput(g);
+    ac.start();
+  } 
 }
 
 void keyReleased()
