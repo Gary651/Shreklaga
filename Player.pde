@@ -13,10 +13,12 @@ class Player
   PImage gingyShot;
   float shotX;
   float shotY;
+  float playerOffset;
   boolean movingLeft;
   boolean movingRight;
   boolean playingAsShrek;
   boolean playingAsGingy;
+  boolean goingOffscreen;
 
   public Player()
   {
@@ -27,6 +29,8 @@ class Player
     xSpeed = 0;
     playerX = width/2;
     playerY = height - 50;
+    playerOffset = 0;
+    goingOffscreen = false;
     
     //Loads and appropriately sizes player
     shrek = loadImage("shrek.png");
@@ -58,9 +62,9 @@ class Player
   void drawPlayer()
   {
     if(playingAsShrek)//If the user has chosen to play as Shrek
-      image(shrek,playerX,playerY);//Draws Shrek
+      image(shrek,playerX,(playerY+playerOffset));//Draws Shrek
     if(playingAsGingy)//If the user has chosen to play as Gingerbread Man
-      image(gingy,playerX,playerY);//Draws Gingerbread Man
+      image(gingy,playerX,(playerY+playerOffset));//Draws Gingerbread Man
   }
 
  
@@ -78,22 +82,33 @@ class Player
  
   public void movePlayer()
   {
-    //If the player is moving left, decrease the speed(xSpeed) by .5
-    if(movingLeft)
-       xSpeed -= .5;
-    //If the player is moving right, increase the speed(xSpeed) by .5
-    if(movingRight)
-       xSpeed += .5;
+    if(!goingOffscreen)
+    {
+      //If the player is moving left, decrease the speed(xSpeed) by .5
+      if(movingLeft)
+         xSpeed -= .5;
+      //If the player is moving right, increase the speed(xSpeed) by .5
+      if(movingRight)
+         xSpeed += .5;
      
-     //Makes it to where the player cannot move out of bounds
-     if(playerX >= width - (playerSize/2))
-       xSpeed = min(0,-xSpeed);
-     if(playerX <= playerSize/2)
-       xSpeed = max(0,-xSpeed);
+       //Makes it to where the player cannot move out of bounds
+       if(playerX >= width - (playerSize/2))
+         xSpeed = min(0,-xSpeed);
+       if(playerX <= playerSize/2)
+         xSpeed = max(0,-xSpeed);
      
-     xSpeed *= 0.95;//Creates friction
+       xSpeed *= 0.95;//Creates friction
        
-     playerX += xSpeed;//Changes the xPos by the xSpeed
+       playerX += xSpeed;//Changes the xPos by the xSpeed
+    }
+    
+    if(goingOffscreen)
+    {
+      playerOffset += 2.5;
+    }
+    
+    if(playerOffset >= 100)
+      goingOffscreen = false;
   }
  
   public void drawShot()
@@ -150,7 +165,11 @@ class Player
       if( dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen)
       {
         h.playerLives--;//Remove one of the player's lives
+        shotOnScreen = false;//Takes player's shot off of screen
         e[i].laserOnScreen = false;//Remove the enemy's shot from the screen
+        goingOffscreen = true;
+        goingOffscreen = true;//Says that the player is going offscreen
+        return;//Ends void method
       }
     }
   }
