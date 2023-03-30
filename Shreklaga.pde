@@ -61,6 +61,7 @@ void draw()
   }
   else
     h.gameOverScreen();
+    h.saveHighScore();
 }
 
 void keyPressed()
@@ -74,9 +75,7 @@ void keyPressed()
   if(key == 'r')
     ac.stop();
   if(key == 't')
-    ac.start();
-  if(key == 's')
-    h.saveHighScore();
+    ac.start();    
   if(key == 'l')
   {
     ac = new AudioContext();

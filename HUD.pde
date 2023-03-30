@@ -32,7 +32,8 @@ class HUD
   {
     //Displays the high score in the right hand of the screen
     fill(255);
-    highScore = score;
+    if(score >= highScore)
+      highScore = score;
     text("HighScore: " + highScore, width-200, 80);
     textSize(25);
     
@@ -51,6 +52,7 @@ class HUD
     //load the high score
     String [] highScoreSave = loadStrings("High Score.txt");
     highScore = Integer.parseInt(highScoreSave[0]);
+    
   }
   
   void level()
