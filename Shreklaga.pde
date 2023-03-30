@@ -51,8 +51,10 @@ void draw()
       e[i].drawEnemies();
       e[i].moveLasers();
       e[i].drawLasers();
-      e[i].enemyHit();//Checks to see if enemy was hit
+      e[i].enemyHit();//Checks to see if enemy was hit.
+      e[i].moveEnemy();
     }
+  
     p.playerHit();//Checks to see if player was hit
     h.score();//Displays score
     h.highScore();//Displays the highest score
