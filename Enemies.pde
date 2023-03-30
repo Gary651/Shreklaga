@@ -9,7 +9,8 @@ class Enemies
   float laserWidth = 35;
   float laserHeight = 50;
   float shotTimer;
-  float enemyYspd = 0.5;
+  float enemyYspd = 2;
+  float enemyXspd = 0.5;  
   float laserySpeed = 5;
   PImage enemy;
   PImage laser;
@@ -61,7 +62,12 @@ class Enemies
   
   void moveEnemy()//Not complete
   {
-    enemyyPos += enemyYspd;
+   //enemyyPos += enemyYspd;
+   if(millis() >= 10000)
+   {
+   enemyyPos += random( enemyYspd); 
+  //  enemyxPos += random(enemyXspd);
+   }
   }
  
   void formation()//Not complete
@@ -108,4 +114,5 @@ class Enemies
       }
     }
   }
+  
 }
