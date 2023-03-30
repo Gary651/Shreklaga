@@ -11,6 +11,16 @@ boolean playerHasLives;
 public Enemies [] e = new Enemies[15];
 void setup()
 {
+  //plays sounds
+  ac = new AudioContext();
+  Sample sample = SampleManager.sample(dataPath("allStar.mp3"));
+  music = new GranularSamplePlayer(ac, sample);
+  //Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
+  //music = new GranularSamplePlayer(ac, sample1);
+  Gain g = new Gain(ac, 2, 1.0);
+  g.addInput(music);
+  ac.out.addInput(g);
+  ac.start();
   
   fullScreen();
   s = new Stars();
@@ -41,10 +51,8 @@ void draw()
       e[i].drawEnemies();
       e[i].moveLasers();
       e[i].drawLasers();
-      e[i].enemyHit();//Checks to see if enemy was hit.
-      e[i].moveEnemy();
+      e[i].enemyHit();//Checks to see if enemy was hit
     }
-  
     p.playerHit();//Checks to see if player was hit
     h.score();//Displays score
     h.highScore();//Displays the highest score
@@ -59,7 +67,7 @@ void keyPressed()
 {
   if(key == 'a' || key == 'd')
     p.addThrust(key, true);
-  if(key == 'w' && !p.goingOffscreen)
+  if(key == 'w')
     p.shoot();
   if(key == 'g')
     p.switchPlayer();
@@ -69,41 +77,28 @@ void keyPressed()
     ac.start();
   if(key == 's')
     h.saveHighScore();
-    if(key == '`')
+  if(key == '`')
   {
-    ac.stop();
     ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
     music = new GranularSamplePlayer(ac, sample1);
     Gain g = new Gain(ac, 2, 1.0);
     g.addInput(music);
     ac.out.addInput(g);
-    
+    ac.start();
   } 
-  if(key == '1')
+   if(key == '1')
   {
-    ac.stop();
     ac = new AudioContext();
-    Sample sample1 = SampleManager.sample(dataPath("allStar.mp3"));
+    Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
     music = new GranularSamplePlayer(ac, sample1);
     Gain g = new Gain(ac, 2, 1.0);
     g.addInput(music);
     ac.out.addInput(g);
-    
-  } 
+    ac.start();
+  }
   /*
-  if(key == '2')
-  {
-    ac = new AudioContext();
-    Sample sample1 = SampleManager.sample(dataPath("allStar.mp3"));
-    music = new GranularSamplePlayer(ac, sample1);
-    Gain g = new Gain(ac, 2, 1.0);
-    g.addInput(music);
-    ac.out.addInput(g);
-    ac.start();
-    
-  } 
-  (key == '3')
+   if(key == '2')
   {
     ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
@@ -113,7 +108,7 @@ void keyPressed()
     ac.out.addInput(g);
     ac.start();
   } 
-  if(key == '4')
+   if(key == '3')
   {
     ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
@@ -123,7 +118,7 @@ void keyPressed()
     ac.out.addInput(g);
     ac.start();
   } 
-  if(key == '5')
+   if(key == '4')
   {
     ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
@@ -132,8 +127,7 @@ void keyPressed()
     g.addInput(music);
     ac.out.addInput(g);
     ac.start();
-  } 
-  if(key == '6')
+  } if(key == '5')
   {
     ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
@@ -142,8 +136,7 @@ void keyPressed()
     g.addInput(music);
     ac.out.addInput(g);
     ac.start();
-  } 
-  if(key == '7')
+  } if(key == '6')
   {
     ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
@@ -152,8 +145,7 @@ void keyPressed()
     g.addInput(music);
     ac.out.addInput(g);
     ac.start();
-  } 
-  if(key == '8')
+  } if(key == '7')
   {
     ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
@@ -162,8 +154,16 @@ void keyPressed()
     g.addInput(music);
     ac.out.addInput(g);
     ac.start();
-  } 
-  if(key == '9')
+  } if(key == '8')
+  {
+    ac = new AudioContext();
+    Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
+    music = new GranularSamplePlayer(ac, sample1);
+    Gain g = new Gain(ac, 2, 1.0);
+    g.addInput(music);
+    ac.out.addInput(g);
+    ac.start();
+  } if(key == '9')
   {
     ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
@@ -202,9 +202,8 @@ void keyPressed()
     g.addInput(music);
     ac.out.addInput(g);
     ac.start();
-  }
+  } 
   */
-  
 }
 
 void keyReleased()
