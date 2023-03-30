@@ -7,18 +7,18 @@ class Player
   public float playerX;
   public float playerY;
   public boolean shotOnScreen;
+  public boolean goingOffscreen;
   PImage shrek;
   PImage shrekShot;
   PImage gingy;
   PImage gingyShot;
   float shotX;
   float shotY;
-  float playerOffset;
+  int playerOffset;
   boolean movingLeft;
   boolean movingRight;
   boolean playingAsShrek;
   boolean playingAsGingy;
-  boolean goingOffscreen;
 
   public Player()
   {
@@ -103,7 +103,7 @@ class Player
     }
     
     if(goingOffscreen)
-      playerOffset += 2.5;
+      playerOffset += 3;
     else if(playerOffset > 0)
      playerOffset *= 0.9;
     
@@ -162,20 +162,12 @@ class Player
     for(int i = 0; i < e.length; i++)
     {
       //If the enemy shot is within the radius of the player and the enemy's laser is on screen and the player is on the screen
-      if( dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen && !goingOffscreen)
+      if(playerOffset == 0 && dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen && !goingOffscreen)
       {
         h.playerLives--;//Remove one of the player's lives
         shotOnScreen = false;//Takes player's shot off of screen
         e[i].laserOnScreen = false;//Remove the enemy's shot from the screen
         goingOffscreen = true;//Says that the player is going offscreen
-        return;//Ends void method
-      }
-      //If the player gets hit while going off of screen
-      else if(goingOffscreen && dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen && playerOffset > 0)
-      {
-        h.playerLives = h.playerLives;//Makes the player's lives unchangable
-        shotOnScreen = false;//Takes player's shot off of screen
-        goingOffscreen = true;
         return;//Ends void method
       }
     }

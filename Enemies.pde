@@ -101,6 +101,7 @@ class Enemies
     if(dist(enemyxPos, enemyyPos, p.shotX, p.shotY) <= (enemySize/2) && p.shotOnScreen)
     {
       p.shotOnScreen = false;//Removes the player's shot from the screen
+      laserOnScreen = false;//Removes the enemy's shot off of screen
       h.score = h.score + 50;//Adds 50 to the player's score
       if(h.score <= h.highScore)
       {
