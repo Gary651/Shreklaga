@@ -59,25 +59,24 @@ class Enemies
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
     image(enemy,enemyxPos,(enemyyPos + enemyOffset));
-    
-    if(enemyLeavingScreen)
-    {
-      enemyOffset -= 3;
-      laserOnScreen = false;
-    }
-    else if(enemyOffset > 0)
-      enemyOffset *= 0.9;
   }
   
   
   void moveEnemy()//Not complete
   {
-   enemyyPos += enemyYspd;
-   if(millis() >= 10000)
+   //enemyyPos += enemyYspd;
+   if(!enemyLeavingScreen)
    {
-   enemyyPos += random( enemyYspd); 
-  //  enemyxPos += random(enemyXspd);
+     enemyyPos += random( enemyYspd); 
+     //enemyxPos += random(enemyXspd);
    }
+   if(enemyLeavingScreen)
+   {
+     enemyOffset -= 3;
+     laserOnScreen = false;
+   }
+   else if(enemyOffset > 0)
+     enemyOffset *= 0.9;
   }
  
   void formation()//Not complete
@@ -117,12 +116,14 @@ class Enemies
     if(dist(enemyxPos, (enemyyPos + enemyOffset), p.shotX, p.shotY) <= (enemySize/2) && p.shotOnScreen && !enemyLeavingScreen)
     {
       p.shotOnScreen = false;//Removes the player's shot from the screen
-      laserOnScreen = false;//Removes the enemy's shot off of screen
       h.score = h.score + 50;//Adds 50 to the player's score
       enemyLeavingScreen = true;//Makes the enemy leave the screen
       if(h.score <= h.highScore)
         h.highScore = h.highScore + 50;
     }
+    //If enemy player gets shot while leaving the screen
+    else if(dist(enemyxPos, (enemyyPos + enemyOffset), p.shotX, p.shotY) <= (enemySize/2) && p.shotOnScreen && enemyLeavingScreen)
+      p.shotOnScreen = false;//Remove the player shot from the screen
   }
   
 }
