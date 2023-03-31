@@ -9,7 +9,8 @@ class Enemies
   float laserWidth = 35;
   float laserHeight = 50;
   float shotTimer;
-  float enemyYspd = 0.5;
+  float enemyYspd = 2;
+  float enemyXspd = 0.5;  
   float laserySpeed = 5;
   PImage enemy;
   PImage laser;
@@ -61,7 +62,12 @@ class Enemies
   
   void moveEnemy()//Not complete
   {
-    enemyyPos += enemyYspd;
+   //enemyyPos += enemyYspd;
+   if(millis() >= 10000)
+   {
+   enemyyPos += random( enemyYspd); 
+  //  enemyxPos += random(enemyXspd);
+   }
   }
  
   void formation()//Not complete
@@ -101,6 +107,7 @@ class Enemies
     if(dist(enemyxPos, enemyyPos, p.shotX, p.shotY) <= (enemySize/2) && p.shotOnScreen)
     {
       p.shotOnScreen = false;//Removes the player's shot from the screen
+      laserOnScreen = false;//Removes the enemy's shot off of screen
       h.score = h.score + 50;//Adds 50 to the player's score
       if(h.score <= h.highScore)
       {
@@ -108,4 +115,5 @@ class Enemies
       }
     }
   }
+  
 }
