@@ -13,8 +13,10 @@ class Enemies
   float enemyXspd = 0.5;  
   float laserySpeed = 5;
   int enemyOffset = 0;
+  int joe = height + 100;
   PImage enemy;
   PImage laser;
+  boolean enemyOffScreen = false;
   boolean enemyLeavingScreen = false;
   
   public Enemies()
@@ -62,10 +64,10 @@ class Enemies
   }
   
   
-  void moveEnemy()//Not complete
+  void moveEnemy()
   {
    //enemyyPos += enemyYspd;
-   if(!enemyLeavingScreen)
+   if(!enemyLeavingScreen && !enemyOffScreen)
    {
      enemyyPos += random( enemyYspd); 
      //enemyxPos += random(enemyXspd);
@@ -75,8 +77,26 @@ class Enemies
      enemyOffset -= 3;
      laserOnScreen = false;
    }
-   else if(enemyOffset > 0)
-     enemyOffset *= 0.9;
+   if((enemyyPos+enemyOffset) <= -100 || (enemyyPos+enemyOffset) >= joe)
+     enemyOffScreen = true;
+     
+   if(enemyOffScreen)
+   {
+     enemyOffset = 0;
+     enemyxPos = random(enemySize, width-enemySize);
+     enemyyPos = random(0, height/joe);
+     enemyOffScreen = false;
+     enemyLeavingScreen = false;
+   }
+   
+   for(int i = 0; i < e.length; i++)
+   {
+     if(dist(enemyxPos, enemyyPos, e[i].enemyxPos, e[i].enemyyPos) <= enemySize)
+     {
+       enemyxPos = random(enemySize, width-enemySize);
+       enemyyPos = random(0, height/joe);
+     }
+    }
   }
  
   void formation()//Not complete
