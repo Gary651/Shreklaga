@@ -65,31 +65,31 @@ void keyPressed()
     p.switchPlayer();
   if(key == 'r')
     ac.stop();
-  if(key == 't')
-    ac.start();
+  /*if(key == 't')
+    ac.start();*/
   if(key == 's')
     h.saveHighScore();
     if(key == '`')
   {
-    ac.stop();
+    Sample sample = SampleManager.sample(dataPath("background.mp3"));
     ac = new AudioContext();
-    Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
-    music = new GranularSamplePlayer(ac, sample1);
+    ac.start();
+    music = new GranularSamplePlayer(ac, sample);
     Gain g = new Gain(ac, 2, 1.0);
     g.addInput(music);
     ac.out.addInput(g);
-    
+    //ac.stop();
   } 
   if(key == '1')
   {
-    ac.stop();
     ac = new AudioContext();
-    Sample sample1 = SampleManager.sample(dataPath("allStar.mp3"));
-    music = new GranularSamplePlayer(ac, sample1);
+    ac.start();
+    Sample sample = SampleManager.sample(dataPath("allStar.mp3"));
+    music = new GranularSamplePlayer(ac, sample);
     Gain g = new Gain(ac, 2, 1.0);
     g.addInput(music);
     ac.out.addInput(g);
-    
+    //ac.stop();
   } 
   /*
   if(key == '2')
