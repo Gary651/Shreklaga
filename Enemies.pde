@@ -91,9 +91,9 @@ class Enemies
    
    for(int i = 0; i < e.length; i++)
    {
-     if(dist(enemyxPos, enemyyPos, e[i].enemyxPos, e[i].enemyyPos) <= enemySize)
+     if(dist(enemyxPos, enemyyPos, e[i].enemyxPos, e[i].enemyyPos) == enemySize)
      {
-       enemyxPos = random(enemySize, width-enemySize);
+      enemyxPos = random(enemySize, width-enemySize);
        enemyyPos = random(0, height/joe);
      }
     }
