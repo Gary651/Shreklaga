@@ -9,7 +9,7 @@ class Enemies
   float laserWidth = 35;
   float laserHeight = 50;
   float shotTimer;
-  float enemyYspd = 2;
+  float enemyYspd = random(1,2);
   float enemyXspd = 0.5;  
   float laserySpeed = 5;
   int enemyOffset = 0;
@@ -22,8 +22,8 @@ class Enemies
   public Enemies()
   {
    //Sets random positions for the enemy x positions and y positions and sets these positions in bounds
-   enemyxPos = random(enemySize/2,width-(enemySize/2));
-   enemyyPos = random(enemySize/2,height/2);
+   enemyxPos = random(enemySize/1.5,width-(enemySize/1.5));
+   enemyyPos = random(enemySize/1.5,height/2);
    
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
@@ -61,6 +61,28 @@ class Enemies
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
     image(enemy,enemyxPos,(enemyyPos + enemyOffset));
+    
+    if(!enemyLeavingScreen)
+    {
+      for(int i = 0; i < e.length; i++)
+      {
+        if(enemyxPos == e[i].enemyxPos && enemyyPos == e[i].enemyyPos)
+          return;
+        else if(dist(enemyxPos, enemyyPos, e[i].enemyxPos, e[i].enemyyPos) < enemySize)
+        {
+          if(e[i].enemyxPos > enemyxPos)
+          {
+            e[i].enemyxPos += 2;
+            enemyxPos -= 2;
+          }
+          else
+          {
+            enemyxPos += 2;
+            e[i].enemyxPos -= 2;
+          }
+        }
+      }
+    }
   }
   
   
@@ -69,7 +91,7 @@ class Enemies
    //enemyyPos += enemyYspd;
    if(!enemyLeavingScreen && !enemyOffScreen)
    {
-     enemyyPos += random( enemyYspd); 
+     enemyyPos += enemyYspd; 
      //enemyxPos += random(enemyXspd);
    }
    if(enemyLeavingScreen)
@@ -88,15 +110,6 @@ class Enemies
      enemyOffScreen = false;
      enemyLeavingScreen = false;
    }
-   
-   for(int i = 0; i < e.length; i++)
-   {
-     if(dist(enemyxPos, enemyyPos, e[i].enemyxPos, e[i].enemyyPos) == enemySize)
-     {
-      enemyxPos = random(enemySize, width-enemySize);
-       enemyyPos = random(0, height/joe);
-     }
-    }
   }
  
   void formation()//Not complete
