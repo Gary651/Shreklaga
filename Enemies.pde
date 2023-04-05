@@ -13,7 +13,6 @@ class Enemies
   float enemyXspd = 0.5;  
   float laserySpeed = 5;
   int enemyOffset = 0;
-  int joe = height + 100;
   PImage enemy;
   PImage laser;
   boolean enemyOffScreen = false;
@@ -22,8 +21,10 @@ class Enemies
   public Enemies()
   {
    //Sets random positions for the enemy x positions and y positions and sets these positions in bounds
-   enemyxPos = random(enemySize/1.5,width-(enemySize/1.5));
-   enemyyPos = random(enemySize/1.5,height/2);
+   //enemyxPos = 0;//random(enemySize/1.5,width-(enemySize/1.5));
+   //enemyyPos = 0;//random(enemySize/1.5,height/2);
+   enemyxPos = 90;
+   enemyyPos = 90;
    
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
@@ -60,15 +61,28 @@ class Enemies
     
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
-    image(enemy,enemyxPos,(enemyyPos + enemyOffset));
+    //image(enemy,enemyxPos,(enemyyPos + enemyOffset));
     
-    if(!enemyLeavingScreen)
+    for(int i = 0; i < e.length-1; i++)
     {
-      for(int i = 0; i < e.length; i++)
+      if(e[i].enemyxPos >= width-90)
+      {
+        e[i].enemyxPos = 90;
+        e[i].enemyyPos += 90;
+        image(e[i].enemy,e[i].enemyxPos,(e[i].enemyyPos + e[i].enemyOffset));
+      }
+      else
+      {
+        image(e[i].enemy,e[i].enemyxPos,(e[i].enemyyPos + e[i].enemyOffset));
+        e[i+1].enemyxPos += 90;
+      }
+    }
+
+      /*for(int i = 0; i < e.length; i++)
       {
         if(enemyxPos == e[i].enemyxPos && enemyyPos == e[i].enemyyPos)
           return;
-        else if(dist(enemyxPos, enemyyPos, e[i].enemyxPos, e[i].enemyyPos) < enemySize)
+        else if(dist(enemyxPos, (enemyyPos+enemyOffset), e[i].enemyxPos, (e[i].enemyyPos+e[i].enemyOffset)) < enemySize)
         {
           if(e[i].enemyxPos > enemyxPos)
           {
@@ -81,9 +95,8 @@ class Enemies
             e[i].enemyxPos -= 2;
           }
         }
-      }
+      }*/
     }
-  }
   
   
   void moveEnemy()
@@ -99,14 +112,14 @@ class Enemies
      enemyOffset -= 3;
      laserOnScreen = false;
    }
-   if((enemyyPos+enemyOffset) <= -100 || (enemyyPos+enemyOffset) >= joe)
+   if((enemyyPos+enemyOffset) <= -100 || (enemyyPos+enemyOffset) >= height+100)
      enemyOffScreen = true;
      
    if(enemyOffScreen)
    {
      enemyOffset = 0;
      enemyxPos = random(enemySize, width-enemySize);
-     enemyyPos = random(0, height/joe);
+     enemyyPos = random(0, 0.01);
      enemyOffScreen = false;
      enemyLeavingScreen = false;
    }
@@ -114,7 +127,6 @@ class Enemies
  
   void formation()//Not complete
   {
-    
   }
   
   void drawLasers()

@@ -8,6 +8,7 @@ Stars s;
 Player p;
 HUD h;
 boolean playerHasLives;
+boolean musicCurrentlyPlaying;
 public Enemies [] e = new Enemies[15];
 void setup()
 {
@@ -22,6 +23,7 @@ void setup()
     e[i] = new Enemies();
   }
   playerHasLives = true;
+  musicCurrentlyPlaying = false;
 }
 
 void draw()
@@ -39,10 +41,10 @@ void draw()
     for(int i = 0; i < 15; i++)
     {
       e[i].drawEnemies();
-      e[i].moveEnemy();
+      //e[i].moveEnemy();
       e[i].moveLasers();
       e[i].drawLasers();
-      e[i].enemyHit();//Checks to see if enemy was hit.
+      e[i].enemyHit();//Checks to see if enemy was hit
     }
   
     p.playerHit();//Checks to see if player was hit
@@ -71,25 +73,25 @@ void keyPressed()
     h.saveHighScore();
     if(key == '`')
   {
-    ac.stop();
+    //ac.stop();
     ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
     music = new GranularSamplePlayer(ac, sample1);
     Gain g = new Gain(ac, 2, 1.0);
     g.addInput(music);
     ac.out.addInput(g);
-    
+    ac.start();
   } 
   if(key == '1')
   {
-    ac.stop();
+    //ac.stop();
     ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("allStar.mp3"));
     music = new GranularSamplePlayer(ac, sample1);
     Gain g = new Gain(ac, 2, 1.0);
     g.addInput(music);
     ac.out.addInput(g);
-    
+    ac.start();
   } 
   /*
   if(key == '2')
