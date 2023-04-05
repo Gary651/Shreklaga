@@ -39,10 +39,10 @@ void draw()
     for(int i = 0; i < 15; i++)
     {
       e[i].drawEnemies();
+      e[i].moveEnemy();
       e[i].moveLasers();
       e[i].drawLasers();
       e[i].enemyHit();//Checks to see if enemy was hit.
-      e[i].moveEnemy();
     }
   
     p.playerHit();//Checks to see if player was hit

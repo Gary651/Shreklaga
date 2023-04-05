@@ -9,17 +9,21 @@ class Enemies
   float laserWidth = 35;
   float laserHeight = 50;
   float shotTimer;
-  float enemyYspd = 2;
+  float enemyYspd = random(1,2);
   float enemyXspd = 0.5;  
   float laserySpeed = 5;
+  int enemyOffset = 0;
+  int joe = height + 100;
   PImage enemy;
   PImage laser;
+  boolean enemyOffScreen = false;
+  boolean enemyLeavingScreen = false;
   
   public Enemies()
   {
    //Sets random positions for the enemy x positions and y positions and sets these positions in bounds
-   enemyxPos = random(enemySize/2,width-(enemySize/2));
-   enemyyPos = random(enemySize/2,height/2);
+   enemyxPos = random(enemySize/1.5,width-(enemySize/1.5));
+   enemyyPos = random(enemySize/1.5,height/2);
    
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
@@ -56,17 +60,55 @@ class Enemies
     
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
-    image(enemy,enemyxPos,enemyyPos);
+    image(enemy,enemyxPos,(enemyyPos + enemyOffset));
+    
+    if(!enemyLeavingScreen)
+    {
+      for(int i = 0; i < e.length; i++)
+      {
+        if(enemyxPos == e[i].enemyxPos && enemyyPos == e[i].enemyyPos)
+          return;
+        else if(dist(enemyxPos, enemyyPos, e[i].enemyxPos, e[i].enemyyPos) < enemySize)
+        {
+          if(e[i].enemyxPos > enemyxPos)
+          {
+            e[i].enemyxPos += 2;
+            enemyxPos -= 2;
+          }
+          else
+          {
+            enemyxPos += 2;
+            e[i].enemyxPos -= 2;
+          }
+        }
+      }
+    }
   }
   
   
-  void moveEnemy()//Not complete
+  void moveEnemy()
   {
    //enemyyPos += enemyYspd;
-   if(millis() >= 10000)
+   if(!enemyLeavingScreen && !enemyOffScreen)
    {
-   enemyyPos += random( enemyYspd); 
-  //  enemyxPos += random(enemyXspd);
+     enemyyPos += enemyYspd; 
+     //enemyxPos += random(enemyXspd);
+   }
+   if(enemyLeavingScreen)
+   {
+     enemyOffset -= 3;
+     laserOnScreen = false;
+   }
+   if((enemyyPos+enemyOffset) <= -100 || (enemyyPos+enemyOffset) >= joe)
+     enemyOffScreen = true;
+     
+   if(enemyOffScreen)
+   {
+     enemyOffset = 0;
+     enemyxPos = random(enemySize, width-enemySize);
+     enemyyPos = random(0, height/joe);
+     enemyOffScreen = false;
+     enemyLeavingScreen = false;
    }
   }
  
@@ -103,17 +145,18 @@ class Enemies
   
   void enemyHit()
   {
-    //If the player shot is within the radius of the enemy and the player shot is on screen
-    if(dist(enemyxPos, enemyyPos, p.shotX, p.shotY) <= (enemySize/2) && p.shotOnScreen)
+    //If the player shot is within the radius of the enemy, if the player shot is on screen and if the enemy is not leaving the screen
+    if(dist(enemyxPos, (enemyyPos + enemyOffset), p.shotX, p.shotY) <= (enemySize/2) && p.shotOnScreen && !enemyLeavingScreen)
     {
       p.shotOnScreen = false;//Removes the player's shot from the screen
-      laserOnScreen = false;//Removes the enemy's shot off of screen
       h.score = h.score + 50;//Adds 50 to the player's score
+      enemyLeavingScreen = true;//Makes the enemy leave the screen
       if(h.score <= h.highScore)
-      {
         h.highScore = h.highScore + 50;
-      }
     }
+    //If enemy player gets shot while leaving the screen
+    else if(dist(enemyxPos, (enemyyPos + enemyOffset), p.shotX, p.shotY) <= (enemySize/2) && p.shotOnScreen && enemyLeavingScreen)
+      p.shotOnScreen = false;//Remove the player shot from the screen
   }
   
 }

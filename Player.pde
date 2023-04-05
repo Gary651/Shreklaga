@@ -170,6 +170,15 @@ class Player
         goingOffscreen = true;//Says that the player is going offscreen
         return;//Ends void method
       }
-    }
+      //If the enemy directly hits the player and the player is not going offscreen
+      if(playerOffset == 0 && dist(playerX, playerY, e[i].enemyxPos, e[i].enemyyPos) <= (playerSize/2) && !goingOffscreen)
+      {
+        h.playerLives--;//Remove one of the player's lives
+        shotOnScreen = false;//Takes player's shot off of screen
+        e[i].laserOnScreen = false;//Remove the enemy's shot from the screen
+        goingOffscreen = true;//Says that the player is going offscreen
+        return;//Ends void method
+      }
+    }   
   }
 }
