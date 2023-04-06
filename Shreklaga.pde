@@ -9,7 +9,7 @@ Player p;
 HUD h;
 boolean playerHasLives;
 boolean musicCurrentlyPlaying;
-public Enemies [] e = new Enemies[15];
+public Enemies [] e = new Enemies[50];
 void setup()
 {
   
@@ -18,9 +18,9 @@ void setup()
   s = new Stars();
   p = new Player();
   h = new HUD();
-  for(int i = 0; i < 15; i++)
+  for(int i = 0; i < 50; i++)
   {
-    e[i] = new Enemies();
+    e[i] = new Enemies((i+1)*-60);
   }
   playerHasLives = true;
   musicCurrentlyPlaying = false;
@@ -38,15 +38,14 @@ void draw()
     p.drawShot();
     p.movePlayer();
     p.drawPlayer();
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 50; i++)
     {
       e[i].drawEnemies();
-      //e[i].moveEnemy();
+      e[i].moveEnemy();
       e[i].moveLasers();
       e[i].drawLasers();
       e[i].enemyHit();//Checks to see if enemy was hit
     }
-  
     p.playerHit();//Checks to see if player was hit
     h.score();//Displays score
     h.highScore();//Displays the highest score
