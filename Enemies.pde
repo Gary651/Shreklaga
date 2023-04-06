@@ -22,14 +22,16 @@ class Enemies
   
   public Enemies(int x)
   {
-   //Sets random positions for the enemy x positions and y positions and sets these positions in bounds
-   destination = width+x;
-   enemyxPos = x;
-   enemyyPos = 90;
+    //Sets how many enemies will spawn
+    //enemyCount = 15;
+    //Sets random positions for the enemy x positions and y positions and sets these positions in bounds
+    destination = width+x;
+    enemyxPos = x;
+    enemyyPos = 90;
    
-   //Sets the enemy laser's y position to the enemy's y position
-   enemyLaserYpos = enemyyPos;
-   shotTimer = 0;
+    //Sets the enemy laser's y position to the enemy's y position
+    enemyLaserYpos = enemyyPos;
+    shotTimer = 0;
     
     /*Switch case to set the enemy's character to a random character
       If the case is not 0, 1, or 2, the enemy is automatically set to Rumplestiltskin*/
@@ -110,7 +112,12 @@ class Enemies
      enemyLeavingScreen = false;
    }*/
    enemyxPos += 5;
-   if(enemyxPos > width-60)
+   if(enemyxPos >= width-60)
+   {
+     enemyxPos = 60;
+     enemyyPos += 90;
+   }
+   else if(enemyxPos >= width-60 && enemyxPos >= 60)
    {
      enemyxPos = 60;
      enemyyPos += 90;

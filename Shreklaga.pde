@@ -20,7 +20,8 @@ Player p;
 HUD h;
 boolean playerHasLives;
 boolean musicCurrentlyPlaying;
-public Enemies [] e = new Enemies[50];
+public int enemyCount = 15;
+public Enemies [] e = new Enemies[enemyCount];
 void setup()
 {
   ac = new AudioContext();
@@ -31,9 +32,9 @@ void setup()
   s = new Stars();
   p = new Player();
   h = new HUD();
-  for(int i = 0; i < 50; i++)
+  for(int i = 0; i < enemyCount; i++)
   {
-    e[i] = new Enemies((i+1)*-60);
+    e[i] = new Enemies((i+1)*-75);
   }
   playerHasLives = true;
   musicCurrentlyPlaying = false;
@@ -51,7 +52,7 @@ void draw()
     p.drawShot();
     p.movePlayer();
     p.drawPlayer();
-    for(int i = 0; i < 50; i++)
+    for(int i = 0; i < enemyCount; i++)
     {
       e[i].drawEnemies();
       e[i].moveEnemy();
