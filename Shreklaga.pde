@@ -3,6 +3,17 @@
 import beads.*;
 import java.util.Arrays; 
 AudioContext ac;
+AudioContext ac2;
+AudioContext ac3;
+AudioContext ac4;
+AudioContext ac5;
+AudioContext ac6;
+AudioContext ac7;
+AudioContext ac8;
+AudioContext ac9;
+AudioContext ac10;
+AudioContext ac11;
+AudioContext ac12;
 GranularSamplePlayer music;
 Stars s;
 Player p;
@@ -12,6 +23,8 @@ boolean musicCurrentlyPlaying;
 public Enemies [] e = new Enemies[15];
 void setup()
 {
+  ac = new AudioContext();
+  ac2 = new AudioContext();
   
   fullScreen();
   s = new Stars();
@@ -66,7 +79,10 @@ void keyPressed()
   if(key == 'g')
     p.switchPlayer();
   if(key == 'r')
+  {
     ac.stop();
+    ac2.stop();
+  }
   if(key == 't')
     ac.start();
   if(key == 's')
@@ -74,24 +90,22 @@ void keyPressed()
     if(key == '`')
   {
     //ac.stop();
-    ac = new AudioContext();
     Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
     music = new GranularSamplePlayer(ac, sample1);
     Gain g = new Gain(ac, 2, 1.0);
     g.addInput(music);
     ac.out.addInput(g);
     ac.start();
-  } 
+  }  
   if(key == '1')
   {
     //ac.stop();
-    ac = new AudioContext();
-    Sample sample1 = SampleManager.sample(dataPath("allStar.mp3"));
-    music = new GranularSamplePlayer(ac, sample1);
-    Gain g = new Gain(ac, 2, 1.0);
+    Sample sample = SampleManager.sample(dataPath("allStar.mp3"));
+    music = new GranularSamplePlayer(ac2, sample);
+    Gain g = new Gain(ac2, 2, 1.0);
     g.addInput(music);
-    ac.out.addInput(g);
-    ac.start();
+    ac2.out.addInput(g);
+    ac2.start();
   } 
   /*
   if(key == '2')
