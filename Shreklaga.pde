@@ -24,6 +24,7 @@ public Enemies [] e = new Enemies[50];
 void setup()
 {
   ac = new AudioContext();
+  
   ac2 = new AudioContext();
   
   fullScreen();
@@ -77,13 +78,16 @@ void keyPressed()
     p.shoot();
   if(key == 'g')
     p.switchPlayer();
-  if(key == 'r')
-  {
+   if(key == 'r')
+   {
     ac.stop();
     ac2.stop();
-  }
+   }
   if(key == 't')
+  {
     ac.start();
+    ac2.start();
+  }
   if(key == 's')
     h.saveHighScore();
     if(key == '`')
