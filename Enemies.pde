@@ -12,18 +12,19 @@ class Enemies
   float enemyYspd = random(1,2);
   float enemyXspd = 0.5;  
   float laserySpeed = 5;
+  float destination;
   int enemyOffset = 0;
   PImage enemy;
   PImage laser;
+  boolean enemyHasReachedDestination = false;
   boolean enemyOffScreen = false;
   boolean enemyLeavingScreen = false;
   
-  public Enemies()
+  public Enemies(int x)
   {
    //Sets random positions for the enemy x positions and y positions and sets these positions in bounds
-   //enemyxPos = 0;//random(enemySize/1.5,width-(enemySize/1.5));
-   //enemyyPos = 0;//random(enemySize/1.5,height/2);
-   enemyxPos = 90;
+   destination = width+x;
+   enemyxPos = x;
    enemyyPos = 90;
    
    //Sets the enemy laser's y position to the enemy's y position
@@ -61,22 +62,7 @@ class Enemies
     
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
-    //image(enemy,enemyxPos,(enemyyPos + enemyOffset));
-    
-    for(int i = 0; i < e.length-1; i++)
-    {
-      if(e[i].enemyxPos >= width-90)
-      {
-        e[i].enemyxPos = 90;
-        e[i].enemyyPos += 90;
-        image(e[i].enemy,e[i].enemyxPos,(e[i].enemyyPos + e[i].enemyOffset));
-      }
-      else
-      {
-        image(e[i].enemy,e[i].enemyxPos,(e[i].enemyyPos + e[i].enemyOffset));
-        e[i+1].enemyxPos += 90;
-      }
-    }
+    image(enemy,enemyxPos,(enemyyPos + enemyOffset));
 
       /*for(int i = 0; i < e.length; i++)
       {
@@ -102,10 +88,10 @@ class Enemies
   void moveEnemy()
   {
    //enemyyPos += enemyYspd;
-   if(!enemyLeavingScreen && !enemyOffScreen)
+   /*if(!enemyLeavingScreen && !enemyOffScreen)
    {
      enemyyPos += enemyYspd; 
-     //enemyxPos += random(enemyXspd);
+     enemyxPos += random(enemyXspd);
    }
    if(enemyLeavingScreen)
    {
@@ -122,11 +108,18 @@ class Enemies
      enemyyPos = random(0, 0.01);
      enemyOffScreen = false;
      enemyLeavingScreen = false;
+   }*/
+   enemyxPos += 5;
+   if(enemyxPos > width-60)
+   {
+     enemyxPos = 60;
+     enemyyPos += 90;
    }
-  }
- 
-  void formation()//Not complete
-  {
+   if(enemyxPos > destination)
+   {
+     enemyxPos = destination;
+     enemyHasReachedDestination = true;
+   }
   }
   
   void drawLasers()
