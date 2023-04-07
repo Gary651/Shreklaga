@@ -20,12 +20,18 @@ class Enemies
   boolean enemyOffScreen = false;
   boolean enemyLeavingScreen = false;
   
-  public Enemies(int x)
+  public Enemies(int x, int y)
   {
    //Sets random positions for the enemy x positions and y positions and sets these positions in bounds
-   destination = width+x;
-   enemyxPos = x;
-   enemyyPos = 90;
+   destination = x;
+   enemyxPos = -100;
+   enemyyPos = y;
+ 
+   //if(destination < 60)
+   //{
+   //  destination = width+x;
+   //  enemyyPos += 90;
+   //}
    
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
@@ -63,26 +69,7 @@ class Enemies
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
     image(enemy,enemyxPos,(enemyyPos + enemyOffset));
-
-      /*for(int i = 0; i < e.length; i++)
-      {
-        if(enemyxPos == e[i].enemyxPos && enemyyPos == e[i].enemyyPos)
-          return;
-        else if(dist(enemyxPos, (enemyyPos+enemyOffset), e[i].enemyxPos, (e[i].enemyyPos+e[i].enemyOffset)) < enemySize)
-        {
-          if(e[i].enemyxPos > enemyxPos)
-          {
-            e[i].enemyxPos += 2;
-            enemyxPos -= 2;
-          }
-          else
-          {
-            enemyxPos += 2;
-            e[i].enemyxPos -= 2;
-          }
-        }
-      }*/
-    }
+  }
   
   
   void moveEnemy()
@@ -110,11 +97,6 @@ class Enemies
      enemyLeavingScreen = false;
    }*/
    enemyxPos += 5;
-   if(enemyxPos > width-60)
-   {
-     enemyxPos = 60;
-     enemyyPos += 90;
-   }
    if(enemyxPos > destination)
    {
      enemyxPos = destination;

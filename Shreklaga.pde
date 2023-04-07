@@ -18,9 +18,11 @@ GranularSamplePlayer music;
 Stars s;
 Player p;
 HUD h;
+int enemyCount=50;
+int spawnCount = 0;
 boolean playerHasLives;
 boolean musicCurrentlyPlaying;
-public Enemies [] e = new Enemies[50];
+public Enemies [] e = new Enemies[enemyCount];
 void setup()
 {
   ac = new AudioContext();
@@ -32,9 +34,10 @@ void setup()
   s = new Stars();
   p = new Player();
   h = new HUD();
-  for(int i = 0; i < 50; i++)
+  for(int i = 0; i < enemyCount; i++)
   {
-    e[i] = new Enemies((i+1)*-60);
+    //e[i] = new Enemies(((i+1)*-60)+(width*(i/40)), 90+(i/40)*90);
+    e[i] = new Enemies(0,width+500);
   }
   playerHasLives = true;
   musicCurrentlyPlaying = false;
@@ -42,6 +45,9 @@ void setup()
 
 void draw()
 {
+  if(spawnCount<enemyCount)
+    spawnEnemies();
+    
   if(h.playerLives <= 0)
     playerHasLives = false;
   if(playerHasLives)
@@ -56,8 +62,11 @@ void draw()
     {
       e[i].drawEnemies();
       e[i].moveEnemy();
-      e[i].moveLasers();
-      e[i].drawLasers();
+      /*if(e[i].enemyHasReachedDestination)
+      {
+        e[i].moveLasers();
+        e[i].drawLasers();
+      }*/
       e[i].enemyHit();//Checks to see if enemy was hit
     }
     p.playerHit();//Checks to see if player was hit
@@ -70,10 +79,20 @@ void draw()
     h.gameOverScreen();
 }
 
+void spawnEnemies()
+{
+  if( millis()-1000 > spawnCount*1000 )
+  {
+    e[spawnCount] = new Enemies(width-((width/80)+(width/40)*(spawnCount%40)), 90+ 90*(spawnCount/40));
+    spawnCount++;
+  }
+}
+
 void keyPressed()
 {
   if(key == 'a' || key == 'd')
     p.addThrust(key, true);
+    
   if(key == 'w' && !p.goingOffscreen)
     p.shoot();
   if(key == 'g')
