@@ -25,13 +25,7 @@ class Enemies
    //Sets random positions for the enemy x positions and y positions and sets these positions in bounds
    destination = x;
    enemyxPos = -100;
-   enemyyPos = y;
- 
-   //if(destination < 60)
-   //{
-   //  destination = width+x;
-   //  enemyyPos += 90;
-   //}
+   enemyyPos = y+enemyOffset;
    
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
@@ -69,34 +63,17 @@ class Enemies
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
     image(enemy,enemyxPos,(enemyyPos + enemyOffset));
+    
+    if(enemyLeavingScreen)
+    {
+      enemyOffset -= 5;
+    }
   }
   
   
   void moveEnemy()
   {
-   //enemyyPos += enemyYspd;
-   /*if(!enemyLeavingScreen && !enemyOffScreen)
-   {
-     enemyyPos += enemyYspd; 
-     enemyxPos += random(enemyXspd);
-   }
-   if(enemyLeavingScreen)
-   {
-     enemyOffset -= 3;
-     laserOnScreen = false;
-   }
-   if((enemyyPos+enemyOffset) <= -100 || (enemyyPos+enemyOffset) >= height+100)
-     enemyOffScreen = true;
-     
-   if(enemyOffScreen)
-   {
-     enemyOffset = 0;
-     enemyxPos = random(enemySize, width-enemySize);
-     enemyyPos = random(0, 0.01);
-     enemyOffScreen = false;
-     enemyLeavingScreen = false;
-   }*/
-   enemyxPos += 5;
+   enemyxPos += 7.5;
    if(enemyxPos > destination)
    {
      enemyxPos = destination;
@@ -106,10 +83,9 @@ class Enemies
   
   void drawLasers()
   {
-    if(enemyLaserYpos > height)
+    if(enemyyPos > height)
       laserOnScreen = false;
-    
-    if(laserOnScreen)//If the laser is on screen
+    if(laserOnScreen && shotTimer <= millis())//If the laser is on screen
     {
       imageMode(CENTER);
       image(laser,enemyxPos,enemyLaserYpos);//Draws laser
@@ -117,7 +93,6 @@ class Enemies
     
     if(!laserOnScreen)//If there is no laser on screen
     {
-      //image(laser,enemyxPos,enemyLaserYpos);
       enemyLaserYpos = enemyyPos;//Sets the laser's y position to the enemy's y position
       shotTimer = millis() + random(10000);//Makes the shot timer for the enemy
       laserOnScreen = true;//Says that there is a laser on screen
