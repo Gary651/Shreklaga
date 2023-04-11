@@ -63,8 +63,8 @@ void draw()
       e[i].moveEnemy();
       if(e[i].enemyHasReachedDestination)
       {
-        e[i].moveLasers();
         e[i].drawLasers();
+        e[i].moveLasers();
       }
       e[i].enemyHit();//Checks to see if enemy was hit
     }

@@ -62,18 +62,19 @@ class Enemies
     
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
-    image(enemy,enemyxPos,(enemyyPos + enemyOffset));
+    image(enemy,enemyxPos,(enemyyPos - enemyOffset));
     
     if(enemyLeavingScreen)
     {
       enemyOffset -= 5;
+      laserOnScreen = false;
     }
   }
   
   
   void moveEnemy()
   {
-   enemyxPos += 7.5;
+   enemyxPos += 15;
    if(enemyxPos > destination)
    {
      enemyxPos = destination;
@@ -83,18 +84,17 @@ class Enemies
   
   void drawLasers()
   {
-    if(enemyyPos > height)
+    if(enemyLaserYpos > height)
       laserOnScreen = false;
-    if(laserOnScreen && shotTimer <= millis())//If the laser is on screen
+    if(laserOnScreen)//If the laser is on screen
     {
       imageMode(CENTER);
       image(laser,enemyxPos,enemyLaserYpos);//Draws laser
     }
-    
-    if(!laserOnScreen)//If there is no laser on screen
+    else if(!laserOnScreen && shotTimer <= millis())//If there is no laser on screen
     {
-      enemyLaserYpos = enemyyPos;//Sets the laser's y position to the enemy's y position
-      shotTimer = millis() + random(10000);//Makes the shot timer for the enemy
+      enemyLaserYpos = (enemyyPos + enemyOffset);//Sets the laser's y position to the enemy's y position
+      shotTimer = millis() + random(2000);//Makes the shot timer for the enemy
       laserOnScreen = true;//Says that there is a laser on screen
     }
   }
