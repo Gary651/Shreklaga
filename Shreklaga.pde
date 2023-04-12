@@ -25,22 +25,12 @@ boolean musicCurrentlyPlaying;
 public Enemies [] e = new Enemies[enemyCount];
 void setup()
 {
-  /*
   ac = new AudioContext();
-  Sample sample1 = SampleManager.sample(dataPath("TimeLapse.mp3"));
-  music = new GranularSamplePlayer(ac, sample1);
-  Gain g = new Gain(ac, 2, 1.0);
-  g.addInput(music);
-  ac.out.addInput(g);
-  ac.start();
-  
   ac2 = new AudioContext();
-  Sample sample = SampleManager.sample(dataPath("allStar.mp3"));
-  music = new GranularSamplePlayer(ac2, sample);
-  Gain g2 = new Gain(ac2, 2, 1.0);
-  g2.addInput(music);
-  ac2.out.addInput(g2);
-  */
+  ac3 = new AudioContext();
+  ac4 = new AudioContext();
+  
+  
   fullScreen();
   s = new Stars();
   s = new Stars();
@@ -112,19 +102,23 @@ void keyPressed()
    {
     ac.stop();
     ac2.stop();
+    ac3.stop();
+    ac4.stop();
    }
   if(key == 't')
   {
     ac.start();
     ac2.start();
+    ac3.start();
+    ac4.start();
   }
   if(key == 's')
     h.saveHighScore();
     if(key == '`')
   {
     ac.start();
-    Sample sample1 = SampleManager.sample(dataPath("TimeLapse.mp3"));
-    music = new GranularSamplePlayer(ac, sample1);
+    Sample sample = SampleManager.sample(dataPath("background.mp3"));
+    music = new GranularSamplePlayer(ac, sample);
     Gain g = new Gain(ac, 2, 1.0);
     g.addInput(music);
     ac.out.addInput(g);
@@ -132,35 +126,34 @@ void keyPressed()
   if(key == '1')
   {
     //ac.stop();
-    Sample sample = SampleManager.sample(dataPath("allStar.mp3"));
-    music = new GranularSamplePlayer(ac2, sample);
+    Sample sample2 = SampleManager.sample(dataPath("allStar.mp3"));
+    music = new GranularSamplePlayer(ac2, sample2);
     Gain g = new Gain(ac2, 2, 1.0);
     g.addInput(music);
     ac2.out.addInput(g);
     ac2.start();
   } 
-  /*
   if(key == '2')
   {
-    ac = new AudioContext();
-    Sample sample1 = SampleManager.sample(dataPath("allStar.mp3"));
-    music = new GranularSamplePlayer(ac, sample1);
-    Gain g = new Gain(ac, 2, 1.0);
+    ac3 = new AudioContext();
+    Sample sample3 = SampleManager.sample(dataPath("TimeLapse.mp3"));
+    music = new GranularSamplePlayer(ac3, sample3);
+    Gain g = new Gain(ac3, 2, 1.0);
     g.addInput(music);
-    ac.out.addInput(g);
-    ac.start();
-    
+    ac3.out.addInput(g);
+    ac3.start();
   } 
-  (key == '3')
+  if(key == '3')
   {
-    ac = new AudioContext();
-    Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
-    music = new GranularSamplePlayer(ac, sample1);
-    Gain g = new Gain(ac, 2, 1.0);
+    ac4 = new AudioContext();
+    Sample sample4 = SampleManager.sample(dataPath("time.mp3"));
+    music = new GranularSamplePlayer(ac4, sample4);
+    Gain g = new Gain(ac4, 2, 1.0);
     g.addInput(music);
-    ac.out.addInput(g);
-    ac.start();
+    ac4.out.addInput(g);
+    ac4.start();
   } 
+  /*
   if(key == '4')
   {
     ac = new AudioContext();
