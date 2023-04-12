@@ -18,10 +18,11 @@ GranularSamplePlayer music;
 Stars s;
 Player p;
 HUD h;
-int enemyCount=60;
+public int enemyCount=60;
 int spawnCount = 0;
 boolean playerHasLives;
 boolean musicCurrentlyPlaying;
+boolean allEnemiesInPosition = false;
 public Enemies [] e = new Enemies[enemyCount];
 void setup()
 {
@@ -73,7 +74,7 @@ void draw()
     {
       e[i].drawEnemies();
       e[i].moveEnemy();
-      if(e[i].enemyHasReachedDestination)
+      if(allEnemiesInPosition)
       {
         e[i].drawLasers();
         e[i].moveLasers();
@@ -94,20 +95,30 @@ void spawnEnemies()
 {
   if( millis()-1000 > spawnCount*1000 )//Draws 20 enemies per line until spawnCount reaches enemyCount
   {
-    e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+ 90*(spawnCount/20));
+    e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
     spawnCount++;
   }
+  int joe = 0;
+  for(int i = 0; i < enemyCount; i++)
+  {
+    if(e[i].enemyHasReachedDestination)
+      joe++;
+  }
+  if(joe == enemyCount)
+      allEnemiesInPosition = true;
 }
 
 void keyPressed()
 {
   if(key == 'a' || key == 'd')//If the key is 'a' or 'd', add a thrust to the player
     p.addThrust(key, true);
+  
+  //If the player presses 'w', the player is coming on screen or in it's position and all enemies are in position
+  if(key == 'w' && !p.goingOffscreen && allEnemiesInPosition)
+    p.shoot();//Let the enemy shoot
     
-  if(key == 'w' && !p.goingOffscreen)//If the player presses 'w' and the player is coming on screen or in it's position, let the player shoot
-    p.shoot();
-  if(key == 'g')//If the player presses 'g', switch the player
-    p.switchPlayer();
+  if(key == 'g')//If the player presses 'g'
+    p.switchPlayer();//Switch the character the player's playing as
    if(key == 'r')
    {
     ac.stop();

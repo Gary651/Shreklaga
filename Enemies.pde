@@ -1,18 +1,18 @@
 class Enemies
 {
   //Tracking variables
-  public float enemyxPos;
-  public float enemyyPos;
+  public float enemyxPos = 0.0;
+  public float enemyyPos = 0.0;
   public float enemyLaserYpos;
   public float enemySize = 60;
   public boolean laserOnScreen = true;
   float laserWidth = 35;
   float laserHeight = 50;
-  float shotTimer;
+  float shotTimer = 0;
   float enemyYspd = random(1,2);
   float enemyXspd = 0.5;  
   float laserySpeed = 5;
-  float destination;
+  int destination = 0;
   int enemyOffset = 0;
   PImage enemy;
   PImage laser;
@@ -76,7 +76,7 @@ class Enemies
   void moveEnemy()
   {
    enemyxPos += 15;//Moves the enemy very fastly into position
-   if(enemyxPos > destination)//If the enemy has reached it's destination, stop it and say that it's reached it's destination
+   if(enemyxPos >= destination)//If the enemy has reached it's destination, stop it and say that it's reached it's destination
    {
      enemyxPos = destination;
      enemyHasReachedDestination = true;
@@ -95,7 +95,7 @@ class Enemies
     else if(!laserOnScreen && shotTimer <= millis())//If there is no laser on screen and the enemy's shot timer is at it's position
     {
       enemyLaserYpos = (enemyyPos + enemyOffset);//Sets the laser's y position to the enemy's y position
-      shotTimer = millis() + random(2000);//Makes the shot timer for the enemy
+      shotTimer = millis() + random(100, 2000);//Makes the shot timer for the enemy
       laserOnScreen = true;//Says that there is a laser on screen
     }
   }
@@ -119,6 +119,7 @@ class Enemies
       p.shotOnScreen = false;//Removes the player's shot from the screen
       h.score = h.score + 50;//Adds 50 to the player's score
       enemyLeavingScreen = true;//Makes the enemy leave the screen
+      enemyCount--;
       if(h.score <= h.highScore)
         h.highScore = h.highScore + 50;
     }
