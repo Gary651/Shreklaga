@@ -25,10 +25,22 @@ boolean musicCurrentlyPlaying;
 public Enemies [] e = new Enemies[enemyCount];
 void setup()
 {
+  /*
   ac = new AudioContext();
+  Sample sample1 = SampleManager.sample(dataPath("TimeLapse.mp3"));
+  music = new GranularSamplePlayer(ac, sample1);
+  Gain g = new Gain(ac, 2, 1.0);
+  g.addInput(music);
+  ac.out.addInput(g);
+  ac.start();
   
   ac2 = new AudioContext();
-  
+  Sample sample = SampleManager.sample(dataPath("allStar.mp3"));
+  music = new GranularSamplePlayer(ac2, sample);
+  Gain g2 = new Gain(ac2, 2, 1.0);
+  g2.addInput(music);
+  ac2.out.addInput(g2);
+  */
   fullScreen();
   s = new Stars();
   s = new Stars();
@@ -110,13 +122,12 @@ void keyPressed()
     h.saveHighScore();
     if(key == '`')
   {
-    //ac.stop();
-    Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
+    ac.start();
+    Sample sample1 = SampleManager.sample(dataPath("TimeLapse.mp3"));
     music = new GranularSamplePlayer(ac, sample1);
     Gain g = new Gain(ac, 2, 1.0);
     g.addInput(music);
     ac.out.addInput(g);
-    ac.start();
   }  
   if(key == '1')
   {
