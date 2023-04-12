@@ -22,10 +22,10 @@ class Enemies
   
   public Enemies(int x, int y)
   {
-   //Sets random positions for the enemy x positions and y positions and sets these positions in bounds
+   //Sets the enemy's destination to the x given
    destination = x;
-   enemyxPos = -100;
-   enemyyPos = y+enemyOffset;
+   enemyxPos = -100;//sets the x position to -100 to allow the enemy to move onto screen
+   enemyyPos = y+enemyOffset;//Adds the enemy offset to the y given added to the offset given
    
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
@@ -62,19 +62,21 @@ class Enemies
     
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
-    image(enemy,enemyxPos,(enemyyPos + enemyOffset));
+    image(enemy,enemyxPos,(enemyyPos - enemyOffset));//Setting the y position to enemyyPos - enemyOffset allows the enemy to move down the screen
     
+    //If the enemy is leaving the screen, move it down the screen and remove it's laser
     if(enemyLeavingScreen)
     {
       enemyOffset -= 5;
+      laserOnScreen = false;
     }
   }
   
   
   void moveEnemy()
   {
-   enemyxPos += 7.5;
-   if(enemyxPos > destination)
+   enemyxPos += 15;//Moves the enemy very fastly into position
+   if(enemyxPos > destination)//If the enemy has reached it's destination, stop it and say that it's reached it's destination
    {
      enemyxPos = destination;
      enemyHasReachedDestination = true;
@@ -83,18 +85,17 @@ class Enemies
   
   void drawLasers()
   {
-    if(enemyyPos > height)
+    if(enemyLaserYpos > height)
       laserOnScreen = false;
-    if(laserOnScreen && shotTimer <= millis())//If the laser is on screen
+    if(laserOnScreen)//If the laser is on screen
     {
       imageMode(CENTER);
       image(laser,enemyxPos,enemyLaserYpos);//Draws laser
     }
-    
-    if(!laserOnScreen)//If there is no laser on screen
+    else if(!laserOnScreen && shotTimer <= millis())//If there is no laser on screen and the enemy's shot timer is at it's position
     {
-      enemyLaserYpos = enemyyPos;//Sets the laser's y position to the enemy's y position
-      shotTimer = millis() + random(10000);//Makes the shot timer for the enemy
+      enemyLaserYpos = (enemyyPos + enemyOffset);//Sets the laser's y position to the enemy's y position
+      shotTimer = millis() + random(2000);//Makes the shot timer for the enemy
       laserOnScreen = true;//Says that there is a laser on screen
     }
   }
@@ -103,6 +104,11 @@ class Enemies
   void moveLasers()
   {
     enemyLaserYpos += laserySpeed;
+  }
+  
+  void trackPlayer()
+  {
+    
   }
   
   void enemyHit()

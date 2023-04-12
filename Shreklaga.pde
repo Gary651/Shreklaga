@@ -59,9 +59,9 @@ void draw()
   if(spawnCount < enemyCount)
     spawnEnemies();//Spawns however many enemies are set to spawn
     
-  if(h.playerLives <= 0)
+  if(h.playerLives <= 0)//If the player has zero lives, say that the player has no lives
     playerHasLives = false;
-  if(playerHasLives)
+  if(playerHasLives)//If the player has lives
   {
     background(0);
     s.drawStars();
@@ -75,8 +75,8 @@ void draw()
       e[i].moveEnemy();
       if(e[i].enemyHasReachedDestination)
       {
-        e[i].moveLasers();
         e[i].drawLasers();
+        e[i].moveLasers();
       }
       e[i].enemyHit();//Checks to see if enemy was hit
     }
@@ -92,7 +92,7 @@ void draw()
 
 void spawnEnemies()
 {
-  if( millis()-1000 > spawnCount*1000 )
+  if( millis()-1000 > spawnCount*1000 )//Draws 20 enemies per line until spawnCount reaches enemyCount
   {
     e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+ 90*(spawnCount/20));
     spawnCount++;
@@ -101,12 +101,12 @@ void spawnEnemies()
 
 void keyPressed()
 {
-  if(key == 'a' || key == 'd')
+  if(key == 'a' || key == 'd')//If the key is 'a' or 'd', add a thrust to the player
     p.addThrust(key, true);
     
-  if(key == 'w' && !p.goingOffscreen)
+  if(key == 'w' && !p.goingOffscreen)//If the player presses 'w' and the player is coming on screen or in it's position, let the player shoot
     p.shoot();
-  if(key == 'g')
+  if(key == 'g')//If the player presses 'g', switch the player
     p.switchPlayer();
    if(key == 'r')
    {
@@ -257,6 +257,6 @@ void keyPressed()
 
 void keyReleased()
 {
-  if(key == 'a' || key == 'd')
+  if(key == 'a' || key == 'd')//If the player releases 'a' or 'd', remove the thruster
     p.addThrust(key,false);
 }
