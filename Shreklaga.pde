@@ -19,6 +19,7 @@ Stars s;
 Player p;
 HUD h;
 public int enemyCount=60;
+int joe;
 int spawnCount = 0;
 boolean playerHasLives;
 boolean musicCurrentlyPlaying;
@@ -79,6 +80,20 @@ void draw()
   }
   else//If the player is out of lives
     h.gameOverScreen();//Draw the game over screen
+    
+}
+
+void TEST_METHOD()
+{
+  for(int i = 0; i < e.length; i++)
+  {
+    if( e[i].enemyHasReachedDestination )
+      fill(0,200,0);
+    else
+      fill(200,0,0);
+    
+    ellipse(i*10,height/2,8,8);
+  }
 }
 
 void spawnEnemies()
@@ -88,13 +103,17 @@ void spawnEnemies()
     e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
     spawnCount++;
   }
-  int joe = 0;
-  for(int i = 0; i < enemyCount; i++)
+}
+
+void checkEnemyPositions()
+{
+  joe = 0;
+  for(int i = 0; i < e.length; i++)
   {
     if(e[i].enemyHasReachedDestination)
       joe++;
   }
-  if(joe == enemyCount)
+  if(joe == e.length)
       allEnemiesInPosition = true;
 }
 

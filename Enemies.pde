@@ -5,7 +5,7 @@ class Enemies
   public float enemyyPos = 0.0;
   public float enemyLaserYpos;
   public float enemySize = 60;
-  public boolean laserOnScreen = true;
+  public boolean laserOnScreen = false;
   float laserWidth = 35;
   float laserHeight = 50;
   float shotTimer = 0;
@@ -16,9 +16,9 @@ class Enemies
   int enemyOffset = 0;
   PImage enemy;
   PImage laser;
-  boolean enemyHasReachedDestination = false;
   boolean enemyOffScreen = false;
   boolean enemyLeavingScreen = false;
+  boolean enemyHasReachedDestination = false;
   
   public Enemies(int x, int y)
   {
@@ -79,8 +79,9 @@ class Enemies
    if(enemyxPos >= destination)//If the enemy has reached it's destination, stop it and say that it's reached it's destination
    {
      enemyxPos = destination;
-     enemyHasReachedDestination = true;
    }
+   if(enemyxPos == destination)
+     enemyHasReachedDestination = true;
   }
   
   void drawLasers()
