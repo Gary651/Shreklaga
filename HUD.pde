@@ -19,6 +19,7 @@ class HUD
     gingyLives.resize(size, 0);
     score = 0;//Sets score to zero(will be changed whenever the player hits an enemy)
     heartxPos = 0;//Sets the heart x position to zero to allow it to track later on
+
   }
   void score()
   {
