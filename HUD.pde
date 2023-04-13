@@ -19,7 +19,6 @@ class HUD
     gingyLives.resize(size, 0);
     score = 0;//Sets score to zero(will be changed whenever the player hits an enemy)
     heartxPos = 0;//Sets the heart x position to zero to allow it to track later on
-
   }
   void score()
   {
@@ -33,7 +32,8 @@ class HUD
   {
     //Displays the high score in the right hand of the screen
     fill(255);
-    highScore = score;
+    if(score >= highScore)
+      highScore = score;
     text("HighScore: " + highScore, width-200, 80);
     textSize(25);
     
@@ -52,6 +52,7 @@ class HUD
     //load the high score
     String [] highScoreSave = loadStrings("High Score.txt");
     highScore = Integer.parseInt(highScoreSave[0]);
+    
   }
   
   void level()

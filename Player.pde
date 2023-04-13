@@ -162,16 +162,7 @@ class Player
     for(int i = 0; i < e.length; i++)
     {
       //If the enemy shot is within the radius of the player and the enemy's laser is on screen and the player is on the screen
-      if(playerOffset == 0 && dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen)
-      {
-        h.playerLives--;//Remove one of the player's lives
-        shotOnScreen = false;//Takes player's shot off of screen
-        e[i].laserOnScreen = false;//Remove the enemy's shot from the screen
-        goingOffscreen = true;//Says that the player is going offscreen
-        return;//Ends void method
-      }
-      //If the enemy directly hits the player and the player is not going offscreen
-      else if(playerOffset == 0 && dist(playerX, playerY+playerOffset, e[i].enemyxPos, e[i].enemyyPos-e[i].enemyOffset) <= (playerSize/2))
+      if(playerOffset == 0 && dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen && !goingOffscreen)
       {
         h.playerLives--;//Remove one of the player's lives
         shotOnScreen = false;//Takes player's shot off of screen
