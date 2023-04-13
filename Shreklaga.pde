@@ -30,6 +30,7 @@ void setup()
   ac2 = new AudioContext();
   ac3 = new AudioContext();
   ac4 = new AudioContext();
+  ac5 = new AudioContext();
   
   
   fullScreen();
@@ -115,6 +116,7 @@ void keyPressed()
     ac2.stop();
     ac3.stop();
     ac4.stop();
+    ac5.stop();
    }
   if(key == 't')
   {
@@ -122,6 +124,7 @@ void keyPressed()
     ac2.start();
     ac3.start();
     ac4.start();
+    ac5.start();
   }
   if(key == 's')
     h.saveHighScore();
@@ -137,8 +140,8 @@ void keyPressed()
   if(key == '1')
   {
     //ac.stop();
-    Sample sample2 = SampleManager.sample(dataPath("allStar.mp3"));
-    music = new GranularSamplePlayer(ac2, sample2);
+    Sample sample = SampleManager.sample(dataPath("allStar.mp3"));
+    music = new GranularSamplePlayer(ac2, sample);
     Gain g = new Gain(ac2, 2, 1.0);
     g.addInput(music);
     ac2.out.addInput(g);
@@ -147,8 +150,8 @@ void keyPressed()
   if(key == '2')
   {
     ac3 = new AudioContext();
-    Sample sample3 = SampleManager.sample(dataPath("TimeLapse.mp3"));
-    music = new GranularSamplePlayer(ac3, sample3);
+    Sample sample = SampleManager.sample(dataPath("TimeLapse.mp3"));
+    music = new GranularSamplePlayer(ac3, sample);
     Gain g = new Gain(ac3, 2, 1.0);
     g.addInput(music);
     ac3.out.addInput(g);
@@ -157,24 +160,25 @@ void keyPressed()
   if(key == '3')
   {
     ac4 = new AudioContext();
-    Sample sample4 = SampleManager.sample(dataPath("time.mp3"));
-    music = new GranularSamplePlayer(ac4, sample4);
+    Sample sample = SampleManager.sample(dataPath("time.mp3"));
+    music = new GranularSamplePlayer(ac4, sample);
     Gain g = new Gain(ac4, 2, 1.0);
     g.addInput(music);
     ac4.out.addInput(g);
     ac4.start();
   } 
-  /*
+  
   if(key == '4')
   {
-    ac = new AudioContext();
-    Sample sample1 = SampleManager.sample(dataPath("background.mp3"));
-    music = new GranularSamplePlayer(ac, sample1);
-    Gain g = new Gain(ac, 2, 1.0);
+    ac5 = new AudioContext();
+    Sample sample = SampleManager.sample(dataPath("Limitless.mp3"));
+    music = new GranularSamplePlayer(ac5, sample);
+    Gain g = new Gain(ac5, 2, 1.0);
     g.addInput(music);
-    ac.out.addInput(g);
-    ac.start();
+    ac5.out.addInput(g);
+    ac5.start();
   } 
+  /*
   if(key == '5')
   {
     ac = new AudioContext();
