@@ -89,14 +89,6 @@ void spawnEnemies()
     e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
     spawnCount++;
   }
-  int joe = 0;
-  for(int i = 0; i < enemyCount; i++)
-  {
-    if(e[i].enemyHasReachedDestination)
-      joe++;
-  }
-  if(joe == enemyCount)
-      allEnemiesInPosition = true;
 }
 
 void keyPressed()

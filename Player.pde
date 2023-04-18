@@ -23,7 +23,7 @@ class Player
   public Player()
   {
     imageMode(CENTER);//Centers all images
-    
+   
     //Player info
     playerSize = 60;
     xSpeed = 0;
@@ -31,28 +31,28 @@ class Player
     playerY = height - 50;
     playerOffset = 0;
     goingOffscreen = false;
-    
+   
     //Loads and appropriately sizes player
     shrek = loadImage("shrek.png");
     shrek.resize(playerSize,0);
     gingy = loadImage("gingerbreadMan.png");
     gingy.resize(playerSize,0);
-    
+   
     //Loads and appropriately sizes the player's shot
     shrekShot = loadImage("stankOnion.png");
     shrekShot.resize(35,0);
     gingyShot = loadImage("gumDrop.png");
     gingyShot.resize(35,0);
-    
+   
     //Sets the shot's x and y positions to zero so that they can be tampered with later
     shotX = 0;
     shotY = 0;
-    
+   
     //Sets all moving/shot booleans to false so that they can track later in the code
     movingLeft = false;
     movingRight = false;
     shotOnScreen = false;
-    
+   
     /*Sets default character to Shrek
       Sets "playingAsGinger" to false to allow the user to switch characters*/
     playingAsShrek = true;
@@ -101,12 +101,12 @@ class Player
        
        playerX += xSpeed;//Changes the xPos by the xSpeed
     }
-    
+   
     if(goingOffscreen)
       playerOffset += 3;
     else if(playerOffset > 0)
      playerOffset *= 0.9;
-    
+   
     if(playerOffset >= 150)
       goingOffscreen = false;
   }
@@ -117,7 +117,7 @@ class Player
       image(shrekShot, shotX, shotY);//Draws Shrek's shot
     if(shotOnScreen && playingAsGingy)//If the shot is on the screen and the player has chosen to play as Gingerbread Man
       image(gingyShot,shotX,shotY);//Draws Gingy's shot
-    
+   
     shotY -= 2.5;//Makes the shot move
     shotY *= 0.95;//Creates shot friction
     if(shotY < 0)//If the shot is not on the screen, set shotOnScreen to false and allow player to shoot
@@ -142,7 +142,7 @@ class Player
       ac.start();
     }
   }
-  
+ 
   public void switchPlayer()
   {
     if(playingAsShrek)//Switches player from Shrek to Gingerbread Man
@@ -156,13 +156,22 @@ class Player
        playingAsShrek = true;
      }
   }
-  
+ 
   public void playerHit()
   {
     for(int i = 0; i < e.length; i++)
     {
       //If the enemy shot is within the radius of the player and the enemy's laser is on screen and the player is on the screen
-      if(playerOffset == 0 && dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen && !goingOffscreen)
+      if(playerOffset == 0 && dist(playerX, playerY, e[i].enemyxPos, e[i].enemyLaserYpos) <= (playerSize/2) && e[i].laserOnScreen)
+      {
+        h.playerLives--;//Remove one of the player's lives
+        shotOnScreen = false;//Takes player's shot off of screen
+        e[i].laserOnScreen = false;//Remove the enemy's shot from the screen
+        goingOffscreen = true;//Says that the player is going offscreen
+        return;//Ends void method
+      }
+      //If the enemy directly hits the player and the player is not going offscreen
+      else if(playerOffset == 0 && dist(playerX, playerY+playerOffset, e[i].enemyxPos, e[i].enemyyPos-e[i].enemyOffset) <= (playerSize/2))
       {
         h.playerLives--;//Remove one of the player's lives
         shotOnScreen = false;//Takes player's shot off of screen
