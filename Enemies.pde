@@ -12,24 +12,26 @@ class Enemies
   float enemyYspd = random(1,2);
   float enemyXspd = 0.5;  
   float laserySpeed = 5;
-  int destination = 0;
+  int destination;
   int enemyOffset = 0;
   PImage enemy;
   PImage laser;
-  boolean enemyHasReachedDestination;
+  boolean enemyHasReachedDestination=false;
   boolean enemyOffScreen = false;
   boolean enemyLeavingScreen = false;
+  boolean firstShot = true;
  
   public Enemies(int x, int y)
   {
-   //Sets the enemy's destination to the x given
+   /*Sets the enemy's destination to the given x
+     While this is initially zero, it will change later and the enemies will not be able to go onscreen until it changes*/
    destination = x;
-   enemyxPos = -100;//sets the x position to -100 to allow the enemy to move onto screen
+   enemyxPos = -100;//sets the x position to -100 to allow the enemy to move onto screen when it needs to
    enemyyPos = y+enemyOffset;//Adds the enemy offset to the y given added to the offset given
    
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
-   shotTimer = 0;
+   shotTimer = millis() + random(100, 2000) + 65000;
    
     /*Switch case to set the enemy's character to a random character
       If the case is not 0, 1, or 2, the enemy is automatically set to Rumplestiltskin*/
@@ -76,24 +78,31 @@ class Enemies
   void moveEnemy()
   {
     enemyxPos += 15;//Moves the enemy very fastly into position
-    if(enemyxPos >= destination)//If the enemy has reached it's destination, stop it and say that it's reached it's destination
+    if(enemyxPos >= destination && destination > 0)//If the enemy has reached it's destination on screen
     {
-       enemyxPos = destination;
-       enemyHasReachedDestination = true;
+       enemyxPos = destination;//Stop enemy
+       enemyHasReachedDestination = true;//Says that enemy has reached it's destination
     }
-    else
-      enemyHasReachedDestination = false;
-    int joe = 0;
+    else//If the enemy has not reached it's on screen destination
+      enemyHasReachedDestination = false;//Says that  enemy has not reached it's destination
+      
+    int enemiesInPosition = 0;
     for(int i = 0; i < enemyCount; i++)
     {
       if(e[i].enemyHasReachedDestination)
-        joe++;
-      if(joe == enemyCount)
-        allEnemiesInPosition = true;
+        enemiesInPosition++;
       else
-      {
-        allEnemiesInPosition = false;
         return;
+    }
+    if(enemiesInPosition == enemyCount)
+    {
+      allEnemiesInPosition = true;
+      //println(millis()+" "+enemiesInPosition);
+      if(firstShot)
+      {
+        firstShot = false;
+        for(Enemies bad: e)
+          bad.shotTimer = random(5000);
       }
     }
   }
@@ -107,11 +116,19 @@ class Enemies
       imageMode(CENTER);
       image(laser,enemyxPos,enemyLaserYpos);//Draws laser
     }
-    else if(!laserOnScreen && shotTimer <= millis())//If there is no laser on screen and the enemy's shot timer is at it's position
+    else if(!laserOnScreen && shotTimer >= millis() )// + random(100,2000))//If there is no laser on screen and the enemy's shot timer is at it's position
     {
-      enemyLaserYpos = (enemyyPos + enemyOffset);//Sets the laser's y position to the enemy's y position
-      shotTimer = millis() + random(100, 2000);//Makes the shot timer for the enemy
-      laserOnScreen = true;//Says that there is a laser on screen
+      //if(firstShot)
+      {
+      //  firstShot=false;
+      //  shotTimer = random(10,10000);
+      }
+      //else
+      {
+        enemyLaserYpos = (enemyyPos + enemyOffset);//Sets the laser's y position to the enemy's y position
+        laserOnScreen = true;//Says that there is a laser on screen
+      }
+      shotTimer = millis() + random(100, 5000);//Makes the shot timer for the enemy
     }
   }
  

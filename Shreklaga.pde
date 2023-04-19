@@ -40,7 +40,7 @@ void setup()
   h = new HUD();
   for(int i = 0; i < enemyCount; i++)
   {
-    e[i] = new Enemies(0,width+500);//Sets an x and a y for the specific enemy
+    e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
   }
   playerHasLives = true;
   musicCurrentlyPlaying = false;
