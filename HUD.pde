@@ -20,6 +20,7 @@ class HUD
     score = 0;//Sets score to zero(will be changed whenever the player hits an enemy)
     heartxPos = 0;//Sets the heart x position to zero to allow it to track later on
   }
+  
   void score()
   {
     //Displays the score in the right hand of the screen
@@ -47,12 +48,12 @@ class HUD
     hScore.flush();
     hScore.close();
   }
+  
   void loadHighScore()
   {
     //load the high score
     String [] highScoreSave = loadStrings("High Score.txt");
     highScore = Integer.parseInt(highScoreSave[0]);
-    
   }
   
   void level()

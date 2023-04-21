@@ -31,7 +31,7 @@ class Enemies
    
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
-   shotTimer = millis() + random(100, 2000) + 65000;
+   shotTimer = random(100, 2000) + 65000;
    
     /*Switch case to set the enemy's character to a random character
       If the case is not 0, 1, or 2, the enemy is automatically set to Rumplestiltskin*/
@@ -94,7 +94,7 @@ class Enemies
       else
         return;
     }
-    if(enemiesInPosition == enemyCount)
+    /*if(enemiesInPosition == enemyCount)
     {
       allEnemiesInPosition = true;
       //println(millis()+" "+enemiesInPosition);
@@ -104,7 +104,7 @@ class Enemies
         for(Enemies bad: e)
           bad.shotTimer = random(5000);
       }
-    }
+    }*/
   }
  
   void drawLasers()
@@ -115,22 +115,15 @@ class Enemies
     {
       imageMode(CENTER);
       image(laser,enemyxPos,enemyLaserYpos);//Draws laser
+      shotTimer = millis() + random(100, 2000);//Makes the shot timer for the enemy
     }
     else if(!laserOnScreen && shotTimer >= millis() )// + random(100,2000))//If there is no laser on screen and the enemy's shot timer is at it's position
     {
-      //if(firstShot)
-      {
-      //  firstShot=false;
-      //  shotTimer = random(10,10000);
-      }
-      //else
-      {
         enemyLaserYpos = (enemyyPos + enemyOffset);//Sets the laser's y position to the enemy's y position
         laserOnScreen = true;//Says that there is a laser on screen
       }
-      shotTimer = millis() + random(100, 5000);//Makes the shot timer for the enemy
     }
-  }
+  
  
   //Moves the laser down the screen
   void moveLasers()
@@ -152,7 +145,6 @@ class Enemies
       p.shotOnScreen = false;//Removes the player's shot from the screen
       h.score = h.score + 50;//Adds 50 to the player's score
       enemyLeavingScreen = true;//Makes the enemy leave the screen
-      enemyCount--;
       if(h.score <= h.highScore)
         h.highScore = h.highScore + 50;
     }
