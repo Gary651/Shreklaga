@@ -54,14 +54,13 @@ class Enemies
         laser = loadImage("coinShot.png");
         break;
     }
+    //Resizes the enemy to the enemy size(60)
+    enemy.resize(int(enemySize),0);
     laser.resize(int(laserWidth),0);//Resizes all lasers to 35
   }
  
   void drawEnemies()
   {
-    //Resizes the enemy to the enemy size(60)
-    enemy.resize(int(enemySize),0);
-   
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
     image(enemy,enemyxPos,(enemyyPos - enemyOffset));//Setting the y position to enemyyPos - enemyOffset allows the enemy to move down the screen
@@ -83,28 +82,29 @@ class Enemies
        enemyxPos = destination;//Stop enemy
        enemyHasReachedDestination = true;//Says that enemy has reached it's destination
     }
-    else//If the enemy has not reached it's on screen destination
-      enemyHasReachedDestination = false;//Says that  enemy has not reached it's destination
-      
-    int enemiesInPosition = 0;
-    for(int i = 0; i < enemyCount; i++)
+    //else//If the enemy has not reached it's on screen destination
+    //  enemyHasReachedDestination = false;//Says that  enemy has not reached it's destination
+    
+    if( !allEnemiesInPosition )
     {
-      if(e[i].enemyHasReachedDestination)
-        enemiesInPosition++;
-      else
-        return;
-    }
-    /*if(enemiesInPosition == enemyCount)
-    {
-      allEnemiesInPosition = true;
-      //println(millis()+" "+enemiesInPosition);
-      if(firstShot)
+      int enemiesInPosition = 0;
+      for(int i = 0; i < enemyCount; i++)
       {
-        firstShot = false;
-        for(Enemies bad: e)
-          bad.shotTimer = random(5000);
+        if(e[i].enemyHasReachedDestination)
+          enemiesInPosition++;
+        else
+          return;
       }
-    }*/
+      if(enemiesInPosition == enemyCount)
+      {
+        allEnemiesInPosition = true;
+        //println(millis()+" "+enemiesInPosition);
+
+        for(Enemies bad: e) //<>//
+          bad.shotTimer = random(100,2000)+millis();
+
+      }
+    }
   }
  
   void drawLasers()
@@ -115,14 +115,14 @@ class Enemies
     {
       imageMode(CENTER);
       image(laser,enemyxPos,enemyLaserYpos);//Draws laser
-      shotTimer = millis() + random(100, 2000);//Makes the shot timer for the enemy
     }
-    else if(!laserOnScreen && shotTimer >= millis() )// + random(100,2000))//If there is no laser on screen and the enemy's shot timer is at it's position
+    else if(!laserOnScreen && shotTimer <= millis() )// + random(100,2000))//If there is no laser on screen and the enemy's shot timer is at it's position
     {
-        enemyLaserYpos = (enemyyPos + enemyOffset);//Sets the laser's y position to the enemy's y position
-        laserOnScreen = true;//Says that there is a laser on screen
-      }
+      enemyLaserYpos = (enemyyPos + enemyOffset);//Sets the laser's y position to the enemy's y position
+      shotTimer = millis() + random(300, 2000);//Makes the shot timer for the enemy
+      laserOnScreen = true;//Says that there is a laser on screen
     }
+  }
   
  
   //Moves the laser down the screen
