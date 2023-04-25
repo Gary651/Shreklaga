@@ -6,6 +6,7 @@ class HUD
   public int score;
   public int highScore;
   public float heartxPos;
+  
   int size = 25;
   PImage shrekLives;
   PImage gingyLives;
@@ -29,15 +30,24 @@ class HUD
     textSize(25);
   }
   
+  
+  
   void highScore()
   {
     //Displays the high score in the right hand of the screen
     fill(255);
-    if(score >= highScore)
+    if(score == highScore)
       highScore = score;
     text("HighScore: " + highScore, width-200, 80);
     textSize(25);
     
+  }
+  
+  void loadHighScore()
+  {
+    //load the high score
+    String [] highScoreSave = loadStrings("High Score.txt");
+    highScore = Integer.parseInt(highScoreSave[0]);
   }
   
   void saveHighScore()//Not done
@@ -47,13 +57,6 @@ class HUD
     hScore.println(highScore);
     hScore.flush();
     hScore.close();
-  }
-  
-  void loadHighScore()
-  {
-    //load the high score
-    String [] highScoreSave = loadStrings("High Score.txt");
-    highScore = Integer.parseInt(highScoreSave[0]);
   }
   
   void level()

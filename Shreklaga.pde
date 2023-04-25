@@ -53,6 +53,7 @@ void draw()
     
   if(h.playerLives <= 0)//If the player has zero lives, say that the player has no lives
     playerHasLives = false;
+    h.loadHighScore();
   if(playerHasLives)//If the player has lives
   {
     background(0);
@@ -80,6 +81,7 @@ void draw()
   }
   else//If the player is out of lives
     h.gameOverScreen();//Draw the game over screen
+    h.saveHighScore();
     
   text("Time: " + millis() + "   Shot Delay: " + e[0].shotTimer,100,height/2);
 }
