@@ -70,6 +70,7 @@ void draw()
       {
         e[i].drawLasers();
         e[i].moveLasers();
+        e[i].trackPlayer();
       }
     }
     p.playerHit();//Checks to see if player was hit
@@ -80,8 +81,6 @@ void draw()
   }
   else//If the player is out of lives
     h.gameOverScreen();//Draw the game over screen
-    
-  text("Time: " + millis() + "   Shot Delay: " + e[0].shotTimer,100,height/2);
 }
 
 void spawnEnemies()
