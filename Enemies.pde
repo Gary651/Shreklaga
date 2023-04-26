@@ -29,7 +29,7 @@ class Enemies
    enemyxPos = -100;//sets the x position to -100 to allow the enemy to move onto screen when it needs to
    enemyyPos = y+enemyOffset;//Adds the enemy offset to the y given added to the offset given
    
-   //Sets the enemy laser's y position to the enemy's y position
+   //Sets the enemy laser's y position to the enemy's y position and sets the shot timer to come on screen randomly once all enemies are on screen
    enemyLaserYpos = enemyyPos;
    shotTimer = random(300,2000) + 60000;
    
@@ -126,24 +126,18 @@ class Enemies
   {
     imageMode(CENTER);
     enemyLaserYpos += laserySpeed;
-  }
- 
-  void trackPlayer()
-  {
-    int randInt = int(random(0, enemyCount--));
-    float trackingTimer = random(5000,20000) + 60000;
-    for(int i = 0; i < e.length; i++)
+    for(int i = 0; i < enemyCount; i++)
     {
-      if(i == randInt && allEnemiesInPosition && trackingTimer <= millis() && !enemyLeavingScreen)
+      for(int j = 0; j < enemyCount; j++)
       {
-        e[i].laserOnScreen = false;
-        if(e[i].enemyxPos > p.playerX)
-          e[i].enemyxPos--;
-        else if(e[i].enemyxPos < p.playerX)
-          e[i].enemyxPos++;
+        if(dist(e[i].enemyxPos, e[i].enemyLaserYpos, e[j].enemyxPos, e[j].enemyLaserYpos) <= laserWidth && i != j)
+        {
+           if(e[i].enemyLaserYpos > e[j].enemyLaserYpos)
+             e[i].enemyLaserYpos += 4;
+           else if(e[j].enemyLaserYpos > e[i].enemyLaserYpos)
+             e[j].enemyLaserYpos += 4;
+        }
       }
-      else if(i == randInt && allEnemiesInPosition && trackingTimer <= millis() && enemyLeavingScreen)
-        randInt = int(random(0, enemyCount--));
     }
   }
  

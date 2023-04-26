@@ -71,7 +71,6 @@ void draw()
       {
         e[i].drawLasers();
         e[i].moveLasers();
-        e[i].trackPlayer();
       }
     }
     p.playerHit();//Checks to see if player was hit
@@ -82,12 +81,8 @@ void draw()
   }
   else//If the player is out of lives
     h.gameOverScreen();//Draw the game over screen
-<<<<<<< HEAD
-=======
+
     h.saveHighScore();
-    
-  text("Time: " + millis() + "   Shot Delay: " + e[0].shotTimer,100,height/2);
->>>>>>> ad7f2997c789a81020af23d38ab116f9871d04ff
 }
 
 void spawnEnemies()
