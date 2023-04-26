@@ -50,7 +50,7 @@ class HUD
     highScore = Integer.parseInt(highScoreSave[0]);
   }
   
-  void saveHighScore()//Not done
+  void saveHighScore()
   {
     //save the high score 
     PrintWriter hScore = createWriter( "High Score.txt" );
