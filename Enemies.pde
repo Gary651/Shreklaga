@@ -5,7 +5,7 @@ class Enemies
   public float enemyyPos = 0.0;
   public float enemyLaserYpos;
   public float enemySize = 60;
-  public boolean laserOnScreen = true;
+  public boolean laserOnScreen = false;
   float laserWidth = 35;
   float laserHeight = 50;
   float shotTimer = 0;
@@ -31,7 +31,7 @@ class Enemies
    
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
-   shotTimer = random(100, 2000) + 65000;
+   shotTimer = random(300,2000) + 60000;
    
     /*Switch case to set the enemy's character to a random character
       If the case is not 0, 1, or 2, the enemy is automatically set to Rumplestiltskin*/
@@ -85,24 +85,20 @@ class Enemies
     //else//If the enemy has not reached it's on screen destination
     //  enemyHasReachedDestination = false;//Says that  enemy has not reached it's destination
     
-    if( !allEnemiesInPosition )
-    {
-      int enemiesInPosition = 0;
-      for(int i = 0; i < enemyCount; i++)
+      if( !allEnemiesInPosition )
       {
-        if(e[i].enemyHasReachedDestination)
-          enemiesInPosition++;
-        else
-          return;
-      }
-      if(enemiesInPosition == enemyCount)
-      {
-        allEnemiesInPosition = true;
-        //println(millis()+" "+enemiesInPosition);
-
-        for(Enemies bad: e) //<>//
-          bad.shotTimer = random(100,2000)+millis();
-
+        int enemiesInPosition = 0;
+        for(int i = 0; i < enemyCount; i++)
+        {
+          if(e[i].enemyHasReachedDestination)
+            enemiesInPosition++;
+          else
+            return;
+        }
+        if(enemiesInPosition == enemyCount)
+        {
+          allEnemiesInPosition = true;
+          //println(millis()+" "+enemiesInPosition); //<>//
       }
     }
   }
@@ -134,7 +130,21 @@ class Enemies
  
   void trackPlayer()
   {
-   
+    int randInt = int(random(0, enemyCount--));
+    float trackingTimer = random(5000,20000) + 60000;
+    for(int i = 0; i < e.length; i++)
+    {
+      if(i == randInt && allEnemiesInPosition && trackingTimer <= millis() && !enemyLeavingScreen)
+      {
+        e[i].laserOnScreen = false;
+        if(e[i].enemyxPos > p.playerX)
+          e[i].enemyxPos--;
+        else if(e[i].enemyxPos < p.playerX)
+          e[i].enemyxPos++;
+      }
+      else if(i == randInt && allEnemiesInPosition && trackingTimer <= millis() && enemyLeavingScreen)
+        randInt = int(random(0, enemyCount--));
+    }
   }
  
   void enemyHit()
