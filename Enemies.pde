@@ -128,24 +128,6 @@ class Enemies
     enemyLaserYpos += laserySpeed;
   }
  
-  void trackPlayer()
-  {
-    int randInt = int(random(0, enemyCount--));
-    float trackingTimer = random(5000,20000) + 60000;
-    for(int i = 0; i < e.length; i++)
-    {
-      if(i == randInt && allEnemiesInPosition && trackingTimer <= millis() && !enemyLeavingScreen)
-      {
-        e[i].laserOnScreen = false;
-        if(e[i].enemyxPos > p.playerX)
-          e[i].enemyxPos--;
-        else if(e[i].enemyxPos < p.playerX)
-          e[i].enemyxPos++;
-      }
-      else if(i == randInt && allEnemiesInPosition && trackingTimer <= millis() && enemyLeavingScreen)
-        randInt = int(random(0, enemyCount--));
-    }
-  }
  
   void enemyHit()
   {
@@ -155,8 +137,8 @@ class Enemies
       p.shotOnScreen = false;//Removes the player's shot from the screen
       h.score = h.score + 50;//Adds 50 to the player's score
       enemyLeavingScreen = true;//Makes the enemy leave the screen
-      if(h.score <= h.highScore)
-        h.highScore = h.highScore + 50;
+      if(h.score >= h.highScore)
+        h.highScore = h.score;
     }
     //If enemy player gets shot while leaving the screen
     else if(dist(enemyxPos, (enemyyPos + enemyOffset), p.shotX, p.shotY) <= (enemySize/2) && p.shotOnScreen && enemyLeavingScreen)
