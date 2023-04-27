@@ -21,6 +21,7 @@ HUD h;
 public int enemyCount=60;
 int spawnCount = 0;
 boolean playerHasLives;
+boolean gameStarted = false;
 boolean musicCurrentlyPlaying;
 boolean allEnemiesInPosition = false;
 public Enemies [] e = new Enemies[enemyCount];
@@ -54,34 +55,42 @@ void draw()
   if(h.playerLives <= 0)//If the player has zero lives, say that the player has no lives
     playerHasLives = false;
     h.loadHighScore();
-  if(playerHasLives)//If the player has lives
+  background(0);
+  s.drawStars();
+  h.titleScreen();
+  if(gameStarted)
   {
-    background(0);
-    s.drawStars();
-    h.loadHighScore();
-    p.drawShot();
-    p.movePlayer();
-    p.drawPlayer();
-    for(int i = 0; i < enemyCount; i++)
+    if(playerHasLives)//If the player has lives
     {
-      e[i].drawEnemies();
-      e[i].moveEnemy();
-      e[i].enemyHit();//Checks to see if enemy was hit
-      if(allEnemiesInPosition)
+      background(0);
+      s.drawStars();
+      h.loadHighScore();
+      p.drawShot();
+      p.movePlayer();
+      p.drawPlayer();
+      for(int i = 0; i < enemyCount; i++)
       {
-        e[i].drawLasers();
-        e[i].moveLasers();
+        e[i].drawEnemies();
+        e[i].moveEnemy();
+        e[i].enemyHit();//Checks to see if enemy was hit
+        if(allEnemiesInPosition)
+        {
+          e[i].drawLasers();
+          e[i].moveLasers();
+        }
       }
+      p.playerHit();//Checks to see if player was hit
+      h.score();//Displays score
+      h.highScore();//Displays the highest score
+      h.level();//Displays the level
+      h.lives();//Displays how many lives the player has
     }
-    p.playerHit();//Checks to see if player was hit
-    h.score();//Displays score
-    h.highScore();//Displays the highest score
-    h.level();//Displays the level
-    h.lives();//Displays how many lives the player has
+    else//If the player is out of lives
+      h.gameOverScreen();//Draw the game over screen
+      h.saveHighScore();
   }
-  else//If the player is out of lives
-    h.gameOverScreen();//Draw the game over screen
-    h.saveHighScore();
+  
+  
 }
 
 void spawnEnemies()
@@ -91,6 +100,12 @@ void spawnEnemies()
     e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
     spawnCount++;
   }
+}
+
+void mousePressed()
+{
+  if(mousePressed)
+    gameStarted = true;
 }
 
 void keyPressed()
@@ -120,8 +135,6 @@ void keyPressed()
     ac4.start();
     ac5.start();
   }
-  if(key == 's')
-    h.saveHighScore();
 /*    if(key == '`')
   {
     ac.start();

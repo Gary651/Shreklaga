@@ -22,11 +22,24 @@ class HUD
     heartxPos = 0;//Sets the heart x position to zero to allow it to track later on
   }
   
+  void titleScreen()
+  {
+    fill(#08FA66);
+    textAlign(CENTER);
+    textSize(200);
+    text("Shreklaga", width/2, height-800);
+    rectMode(CENTER);
+    textSize(50);
+    rect(width/2,height/2,150,50);
+    fill(0);
+    text("Start", width/2, height-510);
+  }
+  
   void score()
   {
-    //Displays the score in the right hand of the screen
+    //Displays the score in the right hand side of the screen
     fill(255);
-    text("Score: " + score, width-200, 50);
+    text("Score: " + score, width-200, height-900);
     textSize(25);
   }
   
@@ -38,7 +51,7 @@ class HUD
     fill(255);
     if(score == highScore)
       highScore = score;
-    text("HighScore: " + highScore, width-200, 80);
+    text("HighScore: " + highScore, width-200, height-880);
     textSize(25);
     
   }
@@ -63,7 +76,7 @@ class HUD
   {
     //Displays the level in the right hand of the screen
     fill(255);
-    text("Level: ", width-200, 110);
+    text("Level: ", width-200, height-860);
     textSize(25);
   }
   
@@ -94,4 +107,6 @@ class HUD
     textSize(300);
     text("GAME OVER!", width/2, height/2);
   }
+  
+  
 }
