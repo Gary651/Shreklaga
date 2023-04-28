@@ -14,6 +14,8 @@ class Enemies
   float laserySpeed = 5;
   int destination;
   int enemyOffset = 0;
+  int enemyxOffset = 0;
+  int trackingInt = int(random(0,enemyCount-1));
   PImage enemy;
   PImage laser;
   boolean enemyHasReachedDestination=false;
@@ -63,7 +65,7 @@ class Enemies
   {
     //Sets the enemy's image mode to center and draws the enemy at their specific x position and y position
     imageMode(CENTER);
-    image(enemy,enemyxPos,(enemyyPos - enemyOffset));//Setting the y position to enemyyPos - enemyOffset allows the enemy to move down the screen
+    image(enemy,enemyxPos + enemyxOffset,(enemyyPos - enemyOffset));//Setting the y position to enemyyPos - enemyOffset allows the enemy to move down the screen
    
     //If the enemy is leaving the screen, move it down the screen and remove it's laser
     if(enemyLeavingScreen)
@@ -100,6 +102,26 @@ class Enemies
           allEnemiesInPosition = true;
           //println(millis()+" "+enemiesInPosition); //<>//
       }
+    }
+    for(int i = 0; i < enemyCount; i++)
+    {
+      if(i == trackingInt && !e[i].enemyLeavingScreen)
+      {
+        e[i].enemyOffset -= 100;
+        e[i].enemyOffset *= .95;
+        if(e[i].enemyxPos < p.playerX)
+        {
+          e[i].laserOnScreen = false;
+          e[i].enemyxPos += 2.5;
+        }
+        else if(e[i].enemyxPos > p.playerX)
+        {
+          e[i].laserOnScreen = false;
+          e[i].enemyxPos -= 2.5;
+        }
+      }
+      else
+        return;
     }
   }
  
