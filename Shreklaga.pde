@@ -119,6 +119,9 @@ void keyPressed()
     
   if(key == 'g')//If the player presses 'g'
     p.switchPlayer();//Switch the character the player's playing as
+    
+  if(key == 'n')
+    
    if(key == 'r')
    {
     ac.stop();

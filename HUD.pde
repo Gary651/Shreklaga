@@ -24,26 +24,26 @@ class HUD
   
   void titleScreen()
   {
+    push();
     fill(#08FA66);
     textAlign(CENTER);
     textSize(200);
     text("Shreklaga", width/2, height-800);
     rectMode(CENTER);
-    textSize(50);
-    rect(width/2,height/2,150,50);
+    textSize(30);
+    rect(width/2,height/2,300,50);
     fill(0);
-    text("Start", width/2, height-510);
+    text("click anywhere to start", width/2, height-510);
+    pop();
   }
   
   void score()
   {
     //Displays the score in the right hand side of the screen
     fill(255);
-    text("Score: " + score, width-200, height-900);
+    text("Score: " + score, width/1.15, height-900);
     textSize(25);
   }
-  
-  
   
   void highScore()
   {
@@ -51,7 +51,7 @@ class HUD
     fill(255);
     if(score == highScore)
       highScore = score;
-    text("HighScore: " + highScore, width-200, height-880);
+    text("HighScore: " + highScore, width/1.15, height-870);
     textSize(25);
     
   }
@@ -76,7 +76,7 @@ class HUD
   {
     //Displays the level in the right hand of the screen
     fill(255);
-    text("Level: ", width-200, height-860);
+    text("Level: ", width/1.15, height-840);
     textSize(25);
   }
   
@@ -107,6 +107,5 @@ class HUD
     textSize(300);
     text("GAME OVER!", width/2, height/2);
   }
-  
   
 }
