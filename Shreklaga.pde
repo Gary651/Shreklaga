@@ -73,11 +73,11 @@ void draw()
         e[i].drawEnemies();
         e[i].moveEnemy();
         e[i].enemyHit();//Checks to see if enemy was hit
-        if(allEnemiesInPosition)
+        /*if(allEnemiesInPosition)
         {
           e[i].drawLasers();
           e[i].moveLasers();
-        }
+        }*/
       }
       p.playerHit();//Checks to see if player was hit
       h.score();//Displays score
