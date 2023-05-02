@@ -1,7 +1,7 @@
 class Stars
 {
   //Sets the number of stars in the sky and creates an array with that many stars
-  int starCount = 200;
+  int starCount = 500;
   float starPos[][] = new float[2][starCount];
 
   public Stars()

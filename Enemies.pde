@@ -10,7 +10,7 @@ class Enemies
   float laserHeight = 50;
   float shotTimer = 0;
   float enemyYspd = random(1,2);
-  float enemyXspd = 0.5;  
+  float enemyXspd = 0.5;
   float laserySpeed = 5;
   int destination;
   int enemyyOffset = 0;

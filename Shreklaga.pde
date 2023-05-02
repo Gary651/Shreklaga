@@ -58,7 +58,8 @@ void draw()
   background(0);
   s.drawStars();
   h.titleScreen();
-  if(gameStarted)
+  
+  if(gameStarted && mouseX >= 690 && mouseX <= 940 && mouseY >= 525 && mouseY <= 575 || gameStarted && mouseX >= 740 && mouseX <= 990 && mouseY >= 525 && mouseY <= 575 )
   {
     if(playerHasLives)//If the player has lives
     {

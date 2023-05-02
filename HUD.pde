@@ -31,9 +31,11 @@ class HUD
     text("Shreklaga", width/2, height-800);
     rectMode(CENTER);
     textSize(30);
-    rect(width/2,height/2,300,50);
+    rect(width/2,height/2,250,50);
+    rect(width/2,(height/2)+100,250,50);
     fill(0);
-    text("click anywhere to start", width/2, height-510);
+    text("Start", width/2, height-515);
+    text("New Game", width/2, height-415);
     pop();
   }
   
@@ -41,7 +43,7 @@ class HUD
   {
     //Displays the score in the right hand side of the screen
     fill(255);
-    text("Score: " + score, width/1.15, height-900);
+    text("Score: " + score, width/1.15, height-1000);
     textSize(25);
   }
   
@@ -51,7 +53,7 @@ class HUD
     fill(255);
     if(score == highScore)
       highScore = score;
-    text("HighScore: " + highScore, width/1.15, height-870);
+    text("HighScore: " + highScore, width/1.15, height-970);
     textSize(25);
     
   }
@@ -76,7 +78,7 @@ class HUD
   {
     //Displays the level in the right hand of the screen
     fill(255);
-    text("Level: ", width/1.15, height-840);
+    text("Level: ", width/1.15, height-940);
     textSize(25);
   }
   
