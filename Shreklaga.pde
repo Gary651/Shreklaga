@@ -19,6 +19,7 @@ Stars s;
 Player p;
 HUD h;
 public int enemyCount=60;
+public int enemiesOnScreen = enemyCount;
 int spawnCount = 0;
 boolean playerHasLives;
 boolean gameStarted = false;
@@ -27,22 +28,20 @@ boolean allEnemiesInPosition = false;
 public Enemies [] e = new Enemies[enemyCount];
 void setup()
 {
+  for(int i = 0; i < enemyCount; i++)
+  {
+    e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
+  }
   ac = new AudioContext();
   ac2 = new AudioContext();
   ac3 = new AudioContext();
   ac4 = new AudioContext();
   ac5 = new AudioContext();
-  
-  
   fullScreen();
   s = new Stars();
   s = new Stars();
   p = new Player();
   h = new HUD();
-  for(int i = 0; i < enemyCount; i++)
-  {
-    e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
-  }
   playerHasLives = true;
   musicCurrentlyPlaying = false;
 }
@@ -89,16 +88,41 @@ void draw()
       h.gameOverScreen();//Draw the game over screen
       h.saveHighScore();
   }
-  
-  
+}
+
+void resetEnemies()
+{
+  for(int i = 0; i < enemyCount; i++)
+  {
+    e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
+  }
 }
 
 void spawnEnemies()
 {
-  if( millis()-1000 > spawnCount*1000 )//Draws 20 enemies per line until spawnCount reaches enemyCount
+  if(h.level == 1)
   {
-    e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
-    spawnCount++;
+    if( millis()-1000 > spawnCount*1000 )//Draws 20 enemies per line until spawnCount reaches enemyCount
+    {
+      e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
+      spawnCount++;
+    }
+    if(enemiesOnScreen == 0)
+    {
+      spawnCount = 0;
+      enemyCount = 80;
+      e = new Enemies[enemyCount];
+      resetEnemies();
+      h.level++;
+    }
+  }
+  else if(h.level == 2)
+  {
+    if( millis()-1000 > spawnCount*1000 )//Draws 20 enemies per line until spawnCount reaches enemyCount
+    {
+      e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
+      spawnCount++;
+    }
   }
 }
 
