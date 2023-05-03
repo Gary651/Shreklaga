@@ -102,9 +102,9 @@ class Enemies
       enemyyOffset += 5;
       
       if(enemyxPos < p.playerX)
-        enemyxOffset += 2.5;
+        enemyxOffset += 3.5;
       else if(enemyxPos > p.playerX)
-        enemyxOffset -= 2.5;
+        enemyxOffset -= 3.5;
       else if((int)enemyxPos == (int)p.playerX)
         enemyxOffset = 0;
     }
@@ -144,6 +144,7 @@ class Enemies
       p.shotOnScreen = false;//Removes the player's shot from the screen
       h.score = h.score + 50;//Adds 50 to the player's score
       enemyLeavingScreen = true;//Makes the enemy leave the screen
+      enemiesOnScreen--;
       if(h.score >= h.highScore)
         h.highScore = h.score;
     }
