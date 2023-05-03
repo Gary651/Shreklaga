@@ -18,11 +18,12 @@ GranularSamplePlayer music;
 Stars s;
 Player p;
 HUD h;
-public int enemyCount=60;
+public int enemyCount = 60;
 public int enemiesOnScreen = enemyCount;
 int spawnCount = 0;
 boolean playerHasLives;
 boolean gameStarted = false;
+boolean newGameStarted = false;
 boolean musicCurrentlyPlaying;
 boolean allEnemiesInPosition = false;
 public Enemies [] e = new Enemies[enemyCount];
@@ -57,8 +58,8 @@ void draw()
   background(0);
   s.drawStars();
   h.titleScreen();
-  
-  if(gameStarted && mouseX >= 690 && mouseX <= 940 && mouseY >= 525 && mouseY <= 575 || gameStarted && mouseX >= 740 && mouseX <= 990 && mouseY >= 525 && mouseY <= 575 )
+    
+  if(gameStarted || newGameStarted)
   {
     if(playerHasLives)//If the player has lives
     {
@@ -73,11 +74,11 @@ void draw()
         e[i].drawEnemies();
         e[i].moveEnemy();
         e[i].enemyHit();//Checks to see if enemy was hit
-        /*if(allEnemiesInPosition)
+        if(allEnemiesInPosition)
         {
           e[i].drawLasers();
           e[i].moveLasers();
-        }*/
+        }
       }
       p.playerHit();//Checks to see if player was hit
       h.score();//Displays score
@@ -129,8 +130,12 @@ void spawnEnemies()
 
 void mousePressed()
 {
-  if(mousePressed)
+  if( mouseX >= 715 && mouseX <= 965 && mouseY >= 500 && mouseY <= 550)
     gameStarted = true;
+    
+  if( mouseX >= 715 && mouseX <= 965 && mouseY >= 600 && mouseY <= 650)
+    newGameStarted = true;
+    h.highScore = 0;
 }
 
 void keyPressed()

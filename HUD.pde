@@ -5,6 +5,7 @@ class HUD
   public int playerLives = 3;
   public int score;
   public int highScore;
+  public int level;
   public float heartxPos;
   
   int size = 25;
