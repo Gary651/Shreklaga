@@ -48,8 +48,7 @@ void setup()
 
 void draw()
 {
-  if(spawnCount < enemyCount)
-    spawnEnemies();//Spawns however many enemies are set to spawn
+  spawnEnemies(enemiesOnScreen);//Spawns however many enemies are set to spawn
     
   if(h.playerLives <= 0)//If the player has zero lives, say that the player has no lives
     playerHasLives = false;
@@ -58,7 +57,7 @@ void draw()
   s.drawStars();
   h.titleScreen();
   
-  if(gameStarted && mouseX >= 690 && mouseX <= 940 && mouseY >= 525 && mouseY <= 575 || gameStarted && mouseX >= 740 && mouseX <= 990 && mouseY >= 525 && mouseY <= 575 )
+  if(gameStarted)
   {
     if(playerHasLives)//If the player has lives
     {
@@ -89,6 +88,9 @@ void draw()
       h.gameOverScreen();//Draw the game over screen
       h.saveHighScore();
   }
+  text("Spawn count: " + spawnCount, 50, height/1.5);
+  text("Enemy count: " + enemyCount, 50, height/2);
+  text("Number of enemies: " + enemiesOnScreen, 50, height/2.5);
 }
 
 void resetEnemies()
@@ -99,21 +101,26 @@ void resetEnemies()
   }
 }
 
-void spawnEnemies()
+void spawnEnemies(int enemiesAlive)
 {
   if(h.level == 1)
   {
-    if( millis()-1000 > spawnCount*1000 )//Draws 20 enemies per line until spawnCount reaches enemyCount
+    if( millis()-1000 > spawnCount*1000 && spawnCount < enemyCount)//Draws 20 enemies per line until spawnCount reaches enemyCount
     {
       e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
       spawnCount++;
     }
-    if(enemiesOnScreen == 0)
+    if(enemiesAlive == 0)
     {
+      allEnemiesInPosition = false;
       spawnCount = 0;
       enemyCount = 80;
+      enemiesOnScreen = enemyCount;
       e = new Enemies[enemyCount];
-      resetEnemies();
+      for(int i = 0; i < enemyCount; i++)
+      {
+        e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
+      }
       h.level++;
     }
   }
