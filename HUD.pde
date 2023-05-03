@@ -3,6 +3,7 @@ class HUD
   /*Tracking variables
     Some are public so that they can be called outside of HUD class*/
   public int playerLives = 3;
+  public int level = 1;
   public int score;
   public int highScore;
   public int level;
@@ -79,7 +80,7 @@ class HUD
   {
     //Displays the level in the right hand of the screen
     fill(255);
-    text("Level: ", width/1.15, height-940);
+    text("Level: " + level, width/1.15, height-940);
     textSize(25);
   }
   
