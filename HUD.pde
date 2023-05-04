@@ -28,15 +28,17 @@ class HUD
     push();
     fill(#08FA66);
     textAlign(CENTER);
+    rectMode(CENTER);
     textSize(200);
     text("Shreklaga", width/2, height-800);
-    rectMode(CENTER);
     textSize(30);
     rect(width/2,height/2,250,50);
     rect(width/2,(height/2)+100,250,50);
     fill(0);
     text("Start", width/2, height-515);
     text("New Game", width/2, height-415);
+    fill(#08FA66);
+    text("Current High Score: " + highScore, width/2, height-615);
     pop();
   }
   
