@@ -23,6 +23,7 @@ public int enemiesOnScreen = enemyCount;
 int spawnCount = 0;
 boolean playerHasLives;
 boolean gameStarted = false;
+boolean newGameStarted = false;
 boolean musicCurrentlyPlaying;
 boolean allEnemiesInPosition = false;
 public Enemies [] e = new Enemies[enemyCount];
@@ -57,13 +58,13 @@ void draw()
   s.drawStars();
   h.titleScreen();
   
-  if(gameStarted)
+  if(gameStarted || newGameStarted)
   {
     if(playerHasLives)//If the player has lives
     {
       background(0);
       s.drawStars();
-      h.loadHighScore();
+      //h.loadHighScore();
       p.drawShot();
       p.movePlayer();
       p.drawPlayer();
@@ -87,6 +88,7 @@ void draw()
     else//If the player is out of lives
       h.gameOverScreen();//Draw the game over screen
       h.saveHighScore();
+      gameStarted = false;
   }
   text("Spawn count: " + spawnCount, 50, height/1.5);
   text("Enemy count: " + enemyCount, 50, height/2);
@@ -136,8 +138,21 @@ void spawnEnemies(int enemiesAlive)
 
 void mousePressed()
 {
-  if(mousePressed)
+  //If you click the start game button it resumes the previous game
+  if(mouseX >= 715 && mouseX <= 930 && mouseY >= 500 && mouseY <= 550)
+  {
     gameStarted = true;
+    h.loadHighScore();
+  }
+  
+  //If you click the new game button it resets the high score back to zero
+  if(mouseX >= 715 && mouseX <= 930 && mouseY >= 600 && mouseY <= 650)
+  {
+    h.highScore = 0;
+    h.loadHighScore();
+    newGameStarted = true;
+  }
+    
 }
 
 void keyPressed()
