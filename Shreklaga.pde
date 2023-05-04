@@ -72,11 +72,11 @@ void draw()
         e[i].drawEnemies();
         e[i].moveEnemy();
         e[i].enemyHit();//Checks to see if enemy was hit
-        /*if(allEnemiesInPosition)
+        if(allEnemiesInPosition)
         {
           e[i].drawLasers();
           e[i].moveLasers();
-        }*/
+        }
       }
       p.playerHit();//Checks to see if player was hit
       h.score();//Displays score
@@ -88,9 +88,7 @@ void draw()
       h.gameOverScreen();//Draw the game over screen
       h.saveHighScore();
   }
-  text("Spawn count: " + spawnCount, 50, height/1.5);
-  text("Enemy count: " + enemyCount, 50, height/2);
-  text("Number of enemies: " + enemiesOnScreen, 50, height/2.5);
+  text("Millis: " + millis(), 50, height/2);
 }
 
 void resetEnemies()
@@ -126,7 +124,28 @@ void spawnEnemies(int enemiesAlive)
   }
   else if(h.level == 2)
   {
-    if( millis()-1000 > spawnCount*1000 )//Draws 20 enemies per line until spawnCount reaches enemyCount
+    if( millis()-1000 > spawnCount*1000 && spawnCount < enemyCount)//Draws 20 enemies per line until spawnCount reaches enemyCount
+    {
+      e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
+      spawnCount++;
+    }
+    if(enemiesAlive == 0)
+    {
+      allEnemiesInPosition = false;
+      spawnCount = 0;
+      enemyCount = 100;
+      enemiesOnScreen = enemyCount;
+      e = new Enemies[enemyCount];
+      for(int i = 0; i < enemyCount; i++)
+      {
+        e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
+      }
+      h.level++;
+    }
+  }
+  else if(h.level == 3)
+  {
+    if( millis()-1000 > spawnCount*1000 && spawnCount < enemyCount)//Draws 20 enemies per line until spawnCount reaches enemyCount
     {
       e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
       spawnCount++;

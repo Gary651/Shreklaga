@@ -32,6 +32,7 @@ class Enemies
    
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
+   
    shotTimer = random(300,2000) + 60000;
    
     /*Switch case to set the enemy's character to a random character
@@ -91,8 +92,7 @@ class Enemies
         }
         if(enemiesInPosition == enemyCount)
         {
-          allEnemiesInPosition = true;
-          //println(millis()+" "+enemiesInPosition); //<>//
+          allEnemiesInPosition = true; //<>//
         }
      }
      //If the enemy is leaving the screen, move it down the screen and remove it's laser
@@ -144,7 +144,7 @@ class Enemies
       p.shotOnScreen = false;//Removes the player's shot from the screen
       h.score = h.score + 50;//Adds 50 to the player's score
       enemyLeavingScreen = true;//Makes the enemy leave the screen
-      enemiesOnScreen--;
+      enemiesOnScreen = 0;
       if(h.score >= h.highScore)
         h.highScore = h.score;
     }

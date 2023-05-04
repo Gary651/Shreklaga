@@ -6,7 +6,6 @@ class HUD
   public int level = 1;
   public int score;
   public int highScore;
-  public int level;
   public float heartxPos;
   
   int size = 25;
