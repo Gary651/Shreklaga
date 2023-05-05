@@ -86,9 +86,11 @@ void draw()
       h.lives();//Displays how many lives the player has
     }
     else//If the player is out of lives
+    {
       h.gameOverScreen();//Draw the game over screen
       h.saveHighScore();
       gameStarted = false;
+    }
   }
   text("Millis: " + millis(), 50, height/2);
 }
