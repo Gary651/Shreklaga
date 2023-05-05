@@ -58,10 +58,8 @@ void draw()
   s.drawStars();
   h.titleScreen();
   
-  if(gameStarted || newGameStarted)
+  if(gameStarted && playerHasLives|| newGameStarted && playerHasLives)
   {
-    if(playerHasLives)//If the player has lives
-    {
       background(0);
       s.drawStars();
       //h.loadHighScore();
@@ -85,12 +83,14 @@ void draw()
       h.level();//Displays the level
       h.lives();//Displays how many lives the player has
     }
-    else//If the player is out of lives
+    else if(!playerHasLives)//If the player is out of lives
+    {
       h.gameOverScreen();//Draw the game over screen
       h.saveHighScore();
       gameStarted = false;
-  }
+    }
   text("Millis: " + millis(), 50, height/2);
+  text("Enemies On Screen: " + enemiesOnScreen, 50, height/2.5);
 }
 
 void resetEnemies()
@@ -160,8 +160,8 @@ void mousePressed()
   //If you click the start game button it resumes the previous game
   if(mouseX >= 715 && mouseX <= 930 && mouseY >= 500 && mouseY <= 550)
   {
-    gameStarted = true;
     h.loadHighScore();
+    gameStarted = true;
   }
   
   //If you click the new game button it resets the high score back to zero

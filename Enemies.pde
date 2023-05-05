@@ -119,7 +119,7 @@ class Enemies
       imageMode(CENTER);
       image(laser,enemyxPos+enemyxOffset,enemyLaserYpos);//Draws laser
     }
-    else if(!laserOnScreen && shotTimer <= millis() )// + random(100,2000))//If there is no laser on screen and the enemy's shot timer is at it's position
+    else if(!laserOnScreen && shotTimer <= millis())//If there is no laser on screen and the enemy's shot timer is at it's position
     {
       enemyLaserYpos = (enemyyPos + enemyyOffset);//Sets the laser's y position to the enemy's y position
       shotTimer = millis() + random(300, 2000);//Makes the shot timer for the enemy
