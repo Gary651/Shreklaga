@@ -29,10 +29,6 @@ boolean allEnemiesInPosition = false;
 public Enemies [] e = new Enemies[enemyCount];
 void setup()
 {
-  for(int i = 0; i < enemyCount; i++)
-  {
-    e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
-  }
   ac = new AudioContext();
   ac2 = new AudioContext();
   ac3 = new AudioContext();
@@ -45,6 +41,10 @@ void setup()
   h = new HUD();
   playerHasLives = true;
   musicCurrentlyPlaying = false;
+  for(int i = 0; i < enemyCount; i++)
+  {
+    e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
+  }
 }
 
 void draw()
@@ -77,7 +77,7 @@ void draw()
           e[i].moveLasers();
         }
       }
-      p.playerHit();//Checks to see if player was hit
+      //p.playerHit();//Checks to see if player was hit
       h.score();//Displays score
       h.highScore();//Displays the highest score
       h.level();//Displays the level
@@ -91,6 +91,7 @@ void draw()
     }
   text("Millis: " + millis(), 50, height/2);
   text("Enemies On Screen: " + enemiesOnScreen, 50, height/2.5);
+  text("Shot timer: " + e[0].shotTimer, 50, height/1.5);
 }
 
 void resetEnemies()

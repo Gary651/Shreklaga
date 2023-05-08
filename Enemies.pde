@@ -33,7 +33,12 @@ class Enemies
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
    
-   shotTimer = random(300,2000) + 60000;
+   if(h.level == 1)
+     shotTimer = random(300,2000) + 60000;
+   else if(h.level == 2)
+     shotTimer = millis() + 16500 + random(300,2000);
+   else if(h.level == 3)
+     shotTimer = millis() + 12000 + random(300,2000);
    
     /*Switch case to set the enemy's character to a random character
       If the case is not 0, 1, or 2, the enemy is automatically set to Rumplestiltskin*/
@@ -108,6 +113,7 @@ class Enemies
       else if((int)enemyxPos == (int)p.playerX)
         enemyxOffset = 0;
     }
+    //if(h.level === 2 && !allEnemiesInPosition)
   }
  
   void drawLasers()
@@ -144,7 +150,7 @@ class Enemies
       p.shotOnScreen = false;//Removes the player's shot from the screen
       h.score = h.score + 50;//Adds 50 to the player's score
       enemyLeavingScreen = true;//Makes the enemy leave the screen
-      enemiesOnScreen = 0;
+      enemiesOnScreen--;
       if(h.score >= h.highScore)
         h.highScore = h.score;
     }
