@@ -88,6 +88,7 @@ void draw()
       h.gameOverScreen();//Draw the game over screen
       h.saveHighScore();
       gameStarted = false;
+      newGameStarted = false;
     }
   text("Millis: " + millis(), 50, height/2);
   text("Enemies On Screen: " + enemiesOnScreen, 50, height/2.5);

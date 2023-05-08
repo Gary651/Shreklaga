@@ -107,10 +107,12 @@ class HUD
   public void gameOverScreen()
   {
     //Writes "GAME OVER!" whenever the player is out of lives
+    push();
     fill(#FA3535);
     textAlign(CENTER);
     textSize(300);
     text("GAME OVER!", width/2, height/2);
+    pop();
   }
   
 }
