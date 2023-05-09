@@ -72,9 +72,19 @@ class HUD
   {
     //save the high score 
     PrintWriter hScore = createWriter( "High Score.txt" );
-    hScore.println(highScore);
-    hScore.flush();
-    hScore.close();
+    
+    if(newGameStarted == true && highScore > 0)
+    {
+      hScore.println(0);
+      hScore.flush();
+      hScore.close();
+    }
+    else
+    {
+      hScore.println(highScore);
+      hScore.flush();
+      hScore.close();
+    }
   }
   
   void level()

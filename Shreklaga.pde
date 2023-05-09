@@ -18,7 +18,7 @@ GranularSamplePlayer music;
 Stars s;
 Player p;
 HUD h;
-public int enemyCount=60;
+public int enemyCount = 60;
 public int enemiesOnScreen = enemyCount;
 int spawnCount = 0;
 boolean playerHasLives;
@@ -169,8 +169,6 @@ void mousePressed()
   //If you click the new game button it resets the high score back to zero
   if(mouseX >= 715 && mouseX <= 930 && mouseY >= 600 && mouseY <= 650)
   {
-    h.highScore = 0;
-    h.loadHighScore();
     newGameStarted = true;
   }
     
