@@ -50,29 +50,40 @@ void setup()
 void draw()
 {
   spawnEnemies(enemiesOnScreen);//Spawns however many enemies are set to spawn
-    
+  
+  if(millis() > 65000)
+  {
+    gameStarted = true;
+    h.level = 1;
+  }
+  
   if(h.playerLives <= 0)//If the player has zero lives, say that the player has no lives
     playerHasLives = false;
-    //h.loadHighScore();
-  background(0);
-  s.drawStars();
-  h.titleScreen();
+    h.loadHighScore();
+  background(0);//Makes background black for the title screen
+  s.drawStars();//Draws the stars for the title screen
+  h.titleScreen();//Draws the title screen
   
-  if(gameStarted && playerHasLives|| newGameStarted && playerHasLives)
+  if(gameStarted && playerHasLives|| newGameStarted && playerHasLives)//If the player has started a game or a new game and if they have lives
   {
+      //Makes the background black for the game and draws stars for the game
       background(0);
       s.drawStars();
       //h.loadHighScore();
+      
+      //Draws the player shot, draws the player and allows the player to move
       p.drawShot();
       p.movePlayer();
       p.drawPlayer();
+
       for(int i = 0; i < enemyCount; i++)
       {
-        e[i].drawEnemies();
-        e[i].moveEnemy();
+        e[i].drawEnemies();//Draws each individual enemy
+        e[i].moveEnemy();//Moves the enemy if they get shot
         e[i].enemyHit();//Checks to see if enemy was hit
         if(allEnemiesInPosition)
         {
+          //If all enemies are in position, draw and move the enemy's laser
           e[i].drawLasers();
           e[i].moveLasers();
         }
@@ -86,7 +97,9 @@ void draw()
     else if(!playerHasLives)//If the player is out of lives
     {
       h.gameOverScreen();//Draw the game over screen
-      h.saveHighScore();
+      h.saveHighScore();//Save the high score
+      
+      //Takes player back to title screen
       gameStarted = false;
       newGameStarted = false;
     }
@@ -105,51 +118,55 @@ void resetEnemies()
 
 void spawnEnemies(int enemiesAlive)
 {
-  if(h.level == 1)
+  if(h.level == 1)//If the player is on the first level
   {
-    if( millis()-1000 > spawnCount*1000 && spawnCount < enemyCount)//Draws 20 enemies per line until spawnCount reaches enemyCount
+    if( millis()-1000 > spawnCount*1000 && spawnCount < enemyCount)//Draws 20 enemies per line until spawnCount reaches enemyCount(60)
     {
       e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
       spawnCount++;
     }
-    if(enemiesAlive == 0)
+    if(enemiesAlive == 0)//If the player kills all the enemies
     {
+      /*Say that not all enemies are in position, sets enemyCount to the next level's enemy count
+        spawnCount is reset to allow tracking for the next level*/
       allEnemiesInPosition = false;
       spawnCount = 0;
       enemyCount = 80;
       enemiesOnScreen = enemyCount;
-      e = new Enemies[enemyCount];
+      e = new Enemies[enemyCount];//Makes a new array of enemies for the next level
       for(int i = 0; i < enemyCount; i++)
       {
-        e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
+        e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy for the next level
       }
-      h.level++;
+      h.level++;//Progress to the next level
     }
   }
-  else if(h.level == 2)
+  else if(h.level == 2)//If the player is on the second level
   {
-    if( millis()-1000 > spawnCount*1000 && spawnCount < enemyCount)//Draws 20 enemies per line until spawnCount reaches enemyCount
+    if( millis()-1000 > spawnCount*1000 && spawnCount < enemyCount)//Draws 20 enemies per line until spawnCount reaches enemyCount(80)
     {
       e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
       spawnCount++;
     }
-    if(enemiesAlive == 0)
+    if(enemiesAlive == 0)//If the player kills all the enemies
     {
+      /*Say that not all enemies are in position, sets enemyCount to the next level's enemy count
+        spawnCount is reset to allow tracking for the next level*/
       allEnemiesInPosition = false;
       spawnCount = 0;
       enemyCount = 100;
       enemiesOnScreen = enemyCount;
-      e = new Enemies[enemyCount];
+      e = new Enemies[enemyCount];//Makes a new array of enemies for the next level
       for(int i = 0; i < enemyCount; i++)
       {
-        e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
+        e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy for the next level
       }
-      h.level++;
+      h.level++;//Progress to the next level
     }
   }
-  else if(h.level == 3)
+  else if(h.level == 3)//If the player is on the third level
   {
-    if( millis()-1000 > spawnCount*1000 && spawnCount < enemyCount)//Draws 20 enemies per line until spawnCount reaches enemyCount
+    if( millis()-1000 > spawnCount*1000 && spawnCount < enemyCount)//Draws 20 enemies per line until spawnCount reaches enemyCount(100)
     {
       e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
       spawnCount++;
@@ -162,6 +179,7 @@ void mousePressed()
   //If you click the start game button it resumes the previous game
   if(mouseX >= 715 && mouseX <= 930 && mouseY >= 500 && mouseY <= 550)
   {
+    h.level = 1;
     h.loadHighScore();
     gameStarted = true;
   }
@@ -169,7 +187,7 @@ void mousePressed()
   //If you click the new game button it resets the high score back to zero
   if(mouseX >= 715 && mouseX <= 930 && mouseY >= 600 && mouseY <= 650)
   {
-    h.loadHighScore();
+    h.level = 1;
     newGameStarted = true;
   }
     
