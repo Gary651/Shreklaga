@@ -7,7 +7,6 @@ class HUD
   public int score;
   public int highScore;
   public float heartxPos;
-  
   int size = 25;
   PImage shrekLives;
   PImage gingyLives;
@@ -35,10 +34,10 @@ class HUD
     rect(width/2,height/2,250,50);
     rect(width/2,(height/2)+100,250,50);
     fill(0);
-    text("Start", width/2, height-515);
-    text("New Game", width/2, height-415);
+    text("Start", width/2, height/1.95);
+    text("New Game", width/2, height/1.65);
     fill(#08FA66);
-    text("Current High Score: " + highScore, width/2, height-615);
+    text("Current High Score: " + highScore, width/2, height/2.5);
     pop();
   }
   
@@ -73,7 +72,7 @@ class HUD
     //save the high score 
     PrintWriter hScore = createWriter( "High Score.txt" );
     
-    if(newGameStarted == true && highScore > 0)
+    if(newGameStarted && highScore >= 0)
     {
       hScore.println(0);
       hScore.flush();

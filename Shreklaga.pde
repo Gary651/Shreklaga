@@ -53,7 +53,7 @@ void draw()
     
   if(h.playerLives <= 0)//If the player has zero lives, say that the player has no lives
     playerHasLives = false;
-    h.loadHighScore();
+    //h.loadHighScore();
   background(0);
   s.drawStars();
   h.titleScreen();
@@ -169,6 +169,7 @@ void mousePressed()
   //If you click the new game button it resets the high score back to zero
   if(mouseX >= 715 && mouseX <= 930 && mouseY >= 600 && mouseY <= 650)
   {
+    h.loadHighScore();
     newGameStarted = true;
   }
     
