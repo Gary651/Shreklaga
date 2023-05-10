@@ -3,7 +3,7 @@ class HUD
   /*Tracking variables
     Some are public so that they can be called outside of HUD class*/
   public int playerLives = 3;
-  public int level = 1;
+  public int level = 0;
   public int score;
   public int highScore;
   public float heartxPos;

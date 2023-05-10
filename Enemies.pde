@@ -33,10 +33,22 @@ class Enemies
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
    
-   if(h.level == 1)
-     shotTimer = random(300,2000) + 60000;
+   if(h.level == 1)//If the player is on the first level
+   {
+     if(millis() < 46000)
+       shotTimer = random(300,2000) + 61000;
+     
+     else if(millis() > 60000)
+       shotTimer = random(300,2000) + 73000;
+   }
+     
+   /*If the player is on the second level, add 16500(16.5 seconds) to millis and the shot timer
+     This makes it to where each enemy has a random shot timer on the second level*/
    else if(h.level == 2)
      shotTimer = millis() + 16500 + random(300,2000);
+     
+   /*If the player is on the first level, add 12000(12 seconds) to the shot timer
+     This makes it to where each enemy has a random shot timer on the third level*/
    else if(h.level == 3)
      shotTimer = millis() + 12000 + random(300,2000);
    
@@ -82,44 +94,41 @@ class Enemies
        enemyxPos = destination;//Stop enemy
        enemyHasReachedDestination = true;//Says that enemy has reached it's destination
     }
-    //else//If the enemy has not reached it's on screen destination
-    //  enemyHasReachedDestination = false;//Says that  enemy has not reached it's destination
     
-      if( !allEnemiesInPosition )
+      if( !allEnemiesInPosition )//If all enemies aren't in position
       {
-        int enemiesInPosition = 0;
+        int enemiesInPosition = 0;//Set enemiesInPosition to zero
         for(int i = 0; i < enemyCount; i++)
         {
-          if(e[i].enemyHasReachedDestination)
-            enemiesInPosition++;
+          if(e[i].enemyHasReachedDestination)//If the enemy is in it's position
+            enemiesInPosition++;//Add one to enemiesInPosition
           else
-            return;
+            return;//Check the next enemy
         }
-        if(enemiesInPosition == enemyCount)
+        if(enemiesInPosition == enemyCount)//If the numbers of enemies in position is the same as the enemy count
         {
-          allEnemiesInPosition = true; //<>//
+          allEnemiesInPosition = true;//Say that all enemies are in position //<>//
         }
      }
-     //If the enemy is leaving the screen, move it down the screen and remove it's laser
+     //If the enemy is leaving the screen
     if(enemyLeavingScreen)
     {
+      //Remove the enemy's shot and move the enemy down the screen
       laserOnScreen = false;
       enemyyOffset += 5;
       
-      if(enemyxPos < p.playerX)
-        enemyxOffset += 3.5;
-      else if(enemyxPos > p.playerX)
-        enemyxOffset -= 3.5;
-      else if((int)enemyxPos == (int)p.playerX)
-        enemyxOffset = 0;
+      if(enemyxPos < p.playerX)//Check to see if the enemy is to the left
+        enemyxOffset += 3.5;//Track player horizontally
+      else if(enemyxPos > p.playerX)//Check to see if the enemy is to the right
+        enemyxOffset -= 3.5;//Track player horizontally
     }
-    //if(h.level === 2 && !allEnemiesInPosition)
   }
  
   void drawLasers()
   {
-    if(enemyLaserYpos > height)
+    if(enemyLaserYpos > height)//If the laser is off the screen, say that there is no laser on the screen
       laserOnScreen = false;
+      
     if(laserOnScreen)//If the laser is on screen
     {
       imageMode(CENTER);
@@ -128,7 +137,7 @@ class Enemies
     else if(!laserOnScreen && shotTimer <= millis())//If there is no laser on screen and the enemy's shot timer is at it's position
     {
       enemyLaserYpos = (enemyyPos + enemyyOffset);//Sets the laser's y position to the enemy's y position
-      shotTimer = millis() + random(300, 2000);//Makes the shot timer for the enemy
+      shotTimer = millis() + random(300, 2000);//Resets the shot timer for the enemy
       laserOnScreen = true;//Says that there is a laser on screen
     }
   }
