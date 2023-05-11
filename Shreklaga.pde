@@ -59,7 +59,6 @@ void draw()
   
   if(h.playerLives <= 0)//If the player has zero lives, say that the player has no lives
     playerHasLives = false;
-    h.loadHighScore();
   background(0);//Makes background black for the title screen
   s.drawStars();//Draws the stars for the title screen
   h.titleScreen();//Draws the title screen
@@ -69,13 +68,12 @@ void draw()
       //Makes the background black for the game and draws stars for the game
       background(0);
       s.drawStars();
-      //h.loadHighScore();
       
       //Draws the player shot, draws the player and allows the player to move
       p.drawShot();
       p.movePlayer();
       p.drawPlayer();
-
+      p.playerHit();
       for(int i = 0; i < enemyCount; i++)
       {
         e[i].drawEnemies();//Draws each individual enemy
@@ -188,6 +186,7 @@ void mousePressed()
   if(mouseX >= 715 && mouseX <= 930 && mouseY >= 600 && mouseY <= 650)
   {
     h.level = 1;
+    h.loadHighScore();
     newGameStarted = true;
   }
     
