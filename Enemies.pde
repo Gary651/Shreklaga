@@ -18,9 +18,7 @@ class Enemies
   PImage enemy;
   PImage laser;
   boolean enemyHasReachedDestination=false;
-  boolean enemyOffScreen = false;
   boolean enemyLeavingScreen = false;
-  boolean firstShot = true;
  
   public Enemies(int x, int y)
   {
@@ -33,13 +31,11 @@ class Enemies
    //Sets the enemy laser's y position to the enemy's y position
    enemyLaserYpos = enemyyPos;
    
-   if(h.level == 1)//If the player is on the first level
+   /*If the player is on the first level, add 61000(61 seconds) to the shot timer
+     This makes it to where each enemy initially has a random shot timer*/
+   if(h.level == 1)
    {
-     if(millis() < 46000)
-       shotTimer = random(300,2000) + 61000;
-     
-     else if(millis() > 60000)
-       shotTimer = random(300,2000) + 73000;
+     shotTimer = random(300,2000) + 61000;
    }
      
    /*If the player is on the second level, add 16500(16.5 seconds) to millis and the shot timer
@@ -47,10 +43,10 @@ class Enemies
    else if(h.level == 2)
      shotTimer = millis() + 16500 + random(300,2000);
      
-   /*If the player is on the first level, add 12000(12 seconds) to the shot timer
+   /*If the player is on the first level, add 14000(14 seconds) to the shot timer
      This makes it to where each enemy has a random shot timer on the third level*/
    else if(h.level == 3)
-     shotTimer = millis() + 12000 + random(300,2000);
+     shotTimer = millis() + 14000 + random(300,2000);
    
     /*Switch case to set the enemy's character to a random character
       If the case is not 0, 1, or 2, the enemy is automatically set to Rumplestiltskin*/
