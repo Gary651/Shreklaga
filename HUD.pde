@@ -119,8 +119,11 @@ class HUD
     push();
     fill(#FA3535);
     textAlign(CENTER);
-    textSize(300);
+    textSize(200);
     text("GAME OVER!", width/2, height/2);
+    text("Score: " + highScore, width/2, height/2);
+    if(highScore > highScore)
+      text("New High Score Reached: " + highScore, width/2, height/2);
     pop();
   }
   
