@@ -49,13 +49,14 @@ void setup()
 
 void draw()
 {
-  spawnEnemies(enemiesOnScreen);//Spawns however many enemies are set to spawn
-  
-  if(millis() > 65000)
+  if(millis() > 44000 && !gameStarted)//If the player has been on the title screen for over 44 seconds
   {
+    //Start the game at level one
     gameStarted = true;
     h.level = 1;
   }
+  
+  spawnEnemies(enemiesOnScreen);//Spawns however many enemies are set to spawn
   
   if(h.playerLives <= 0)//If the player has zero lives, say that the player has no lives
     playerHasLives = false;
@@ -101,8 +102,7 @@ void draw()
       gameStarted = false;
       newGameStarted = false;
     }
-  text("Millis: " + millis(), 50, height/2);
-  text("Enemies On Screen: " + enemiesOnScreen, 50, height/2.5);
+  text("Millis: " + millis(), 50, height/2.5);
   text("Shot timer: " + e[0].shotTimer, 50, height/1.5);
 }
 
@@ -168,6 +168,12 @@ void spawnEnemies(int enemiesAlive)
     {
       e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
       spawnCount++;
+    }
+    if(enemiesAlive == 0)
+    {
+      spawnCount = 0;
+      enemyCount = 0;
+      h.level++;
     }
   }
 }
