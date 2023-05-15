@@ -155,7 +155,7 @@ class Enemies
       p.shotOnScreen = false;//Removes the player's shot from the screen
       h.score = h.score + 50;//Adds 50 to the player's score
       enemyLeavingScreen = true;//Makes the enemy leave the screen
-      enemiesOnScreen--;
+      enemiesOnScreen = 0;
       if(h.score >= h.highScore)
         h.highScore = h.score;
     }

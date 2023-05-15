@@ -19,8 +19,8 @@ class BossLevel
   public BossLevel()
   {
     dragon = loadImage("dragonBoss.png");
-    bossSize = 7000;
-    dragonxPos = (width/2) + bossxOffset;
+    bossSize = 700;
+    dragonxPos = (width/2) + dragonxOffset;
     dragonyPos = -1000;
     bossDestination = int(height/1.5);
     bossShotTimer = millis() + random(300,2000);
@@ -39,11 +39,16 @@ class BossLevel
     {
       dragonyOffset += 5;
     }
+    if(bossSize >= 50)
+    {
+      p.shotOnScreen = false;
+      dragonyOffset -= 5;
+    }
   }
   
   public void bossHit()
   {
-    if(dist(p.playerX, p.playerY, bossxPos, bossyPos) <= bossSize/2)
+    if(dist(p.shotX, p.shotY, dragonxPos, dragonyPos) <= bossSize/2)
     {
       bossSize -= 25;
       p.shotOnScreen = false;

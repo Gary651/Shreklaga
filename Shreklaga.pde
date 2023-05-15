@@ -18,6 +18,7 @@ GranularSamplePlayer music;
 Stars s;
 Player p;
 HUD h;
+BossLevel b;
 public int enemyCount = 60;
 public int enemiesOnScreen = enemyCount;
 int spawnCount = 0;
@@ -39,6 +40,7 @@ void setup()
   s = new Stars();
   p = new Player();
   h = new HUD();
+  b = new BossLevel();
   playerHasLives = true;
   musicCurrentlyPlaying = false;
   for(int i = 0; i < enemyCount; i++)
@@ -56,7 +58,8 @@ void draw()
     h.level = 1;
   }
   
-  spawnEnemies(enemiesOnScreen);//Spawns however many enemies are set to spawn
+  if(h.level < 4)
+    spawnEnemies(enemiesOnScreen);//Spawns however many enemies are set to spawn
   
   if(h.playerLives <= 0)//If the player has zero lives, say that the player has no lives
     playerHasLives = false;
@@ -64,8 +67,11 @@ void draw()
   s.drawStars();//Draws the stars for the title screen
   h.titleScreen();//Draws the title screen
   
-  if(gameStarted && playerHasLives|| newGameStarted && playerHasLives)//If the player has started a game or a new game and if they have lives
+  //If the player has started the game or has started a new game, if they have lives and if they're on level one, two or three
+  if(gameStarted && playerHasLives || newGameStarted && playerHasLives)
   {
+    if(h.level <= 3)
+    {
       //Makes the background black for the game and draws stars for the game
       background(0);
       s.drawStars();
@@ -87,11 +93,17 @@ void draw()
           e[i].moveLasers();
         }
       }
-      //p.playerHit();//Checks to see if player was hit
+      p.playerHit();//Checks to see if player was hit
       h.score();//Displays score
       h.highScore();//Displays the highest score
       h.level();//Displays the level
       h.lives();//Displays how many lives the player has
+      }
+      else if(h.level == 4)
+      {
+        b.drawBoss();
+        b.moveBoss();
+      }
     }
     else if(!playerHasLives)//If the player is out of lives
     {
@@ -104,14 +116,6 @@ void draw()
     }
   text("Millis: " + millis(), 50, height/2.5);
   text("Shot timer: " + e[0].shotTimer, 50, height/1.5);
-}
-
-void resetEnemies()
-{
-  for(int i = 0; i < enemyCount; i++)
-  {
-    e[i] = new Enemies(-1,width+500);//Sets an x and a y for the specific enemy
-  }
 }
 
 void spawnEnemies(int enemiesAlive)
