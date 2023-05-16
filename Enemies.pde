@@ -46,7 +46,7 @@ class Enemies
    /*If the player is on the first level, add 14000(14 seconds) to the shot timer
      This makes it to where each enemy has a random shot timer on the third level*/
    else if(h.level == 3)
-     shotTimer = millis() + 14000 + random(300,2000);
+     shotTimer = millis() + 17500 + random(300,2000);
    
     /*Switch case to set the enemy's character to a random character
       If the case is not 0, 1, or 2, the enemy is automatically set to Rumplestiltskin*/
