@@ -8,28 +8,28 @@ class BossLevel
   PImage dragon;
   PImage bossLaser;
   PImage fireballShot;
+  float dragonxSpeed = 0;
   float bossLaserSpeed = 5;
   float bossLaserWidth = 35;
   float bossLaserHeight = 50;
   float bossShotTimer = 0;
   int bossDestination; 
-  int dragonxOffset = 0;
   int dragonyOffset = 0;
 
   public BossLevel()
   {
     dragon = loadImage("dragonBoss.png");
     bossSize = 700;
-    dragonxPos = (width/2) + dragonxOffset;
+    dragonxPos = (width/2);
     dragonyPos = -100;
-    bossDestination = int(height/2.75);
+    bossDestination = int(height/2.5);
     bossShotTimer = millis() + random(300,2000);
   }
   
   public void drawBoss()
   {
     imageMode(CENTER);
-    image(dragon,(int)(dragonxPos + dragonxOffset),(int)(dragonyPos + dragonyOffset));
+    image(dragon,dragonxPos,(int)(dragonyPos + dragonyOffset));
     dragon.resize(bossSize,0);
   }
   
@@ -43,13 +43,22 @@ class BossLevel
       dragonyPos = bossDestination;
       bossInPosition = true;
     }
+    if(bossInPosition)
+    {
+      if(dragonxPos <= bossSize/2)
+         dragonxSpeed *= -1;
+      else if(dragonxPos >= width - (bossSize/2))
+         dragonxSpeed *= -1;
+      dragonxPos += dragonxSpeed;
+    }
     if(bossSize <= 50)
     {
+      dragonxSpeed = 0;
       p.shotOnScreen = false;
       dragonyOffset -= 5;
     }
   }
-  
+
   public void bossHit()
   {
     if(dist(p.shotX, p.shotY, dragonxPos, dragonyPos) <= bossSize/2)

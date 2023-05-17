@@ -91,8 +91,8 @@ void draw()
     } 
     else if (h.level == 4)
     {
-      b.drawBoss();
       b.moveBoss();
+      b.drawBoss();
     }
     //Draws the player shot, draws the player and allows the player to move
     p.drawShot();
@@ -114,8 +114,8 @@ void draw()
     gameStarted = false;
     newGameStarted = false;
   }
-  text("Dragon Ypos: " + (b.dragonyPos + b.dragonyOffset), 50, height/2.5);
-  text("Dragon Destination: " + b.bossDestination, 50, height/1.5);
+  text("Dragon x pos: " + (b.dragonxPos + b.dragonxSpeed), 50, height/2.5);
+  text("Dragon x speed: " + b.dragonxSpeed, 50, height/1.5);
 }
 
 void spawnEnemies(int enemiesAlive)
