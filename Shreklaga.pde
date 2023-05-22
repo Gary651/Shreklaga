@@ -1,5 +1,11 @@
+/*
+  Gaerytt Coffey, Elisha Dollinger and Xavier McClarey
+  Shreklaga
+  May 22nd, 2023
+*/
+
 // galaga type game
-//makes it to where you can play the sounds
+//makes it to where you can play the sounds(NOT COMPLETE)
 import beads.*;
 import java.util.Arrays;
 AudioContext ac;
@@ -19,6 +25,9 @@ Stars s;
 Player p;
 HUD h;
 BossLevel b;
+
+/*Tracking variables for later in the game
+  Most of these will be altered to allow levels to progress, enemies/boss to shoot on time, etc*/
 public int enemyCount = 60;
 public int enemiesOnScreen = enemyCount;
 int spawnCount = 0;
@@ -89,10 +98,18 @@ void draw()
         }
       }
     } 
-    else if (h.level == 4)
+    else if (h.level == 4)//If the player is on the fourth level
     {
+      //Draw and move the boss
       b.moveBoss();
       b.drawBoss();
+      if(bossInPosition)//If the boss is in it's position
+      {
+        //Draw and move the boss' shot
+        b.moveBossShot();
+        b.drawBossShot();
+      }
+      b.bossHit();//Check to see if the boss has been hit
     }
     //Draws the player shot, draws the player and allows the player to move
     p.drawShot();
@@ -114,8 +131,6 @@ void draw()
     gameStarted = false;
     newGameStarted = false;
   }
-  text("Dragon x pos: " + (b.dragonxPos + b.dragonxSpeed), 50, height/2.5);
-  text("Dragon x speed: " + b.dragonxSpeed, 50, height/1.5);
 }
 
 void spawnEnemies(int enemiesAlive)
@@ -164,19 +179,22 @@ void spawnEnemies(int enemiesAlive)
       }
       h.level++;//Progress to the next level
     }
-  } else if (h.level == 3)//If the player is on the third level
+  } 
+  else if (h.level == 3)//If the player is on the third level
   {
     if ( millis()-1000 > spawnCount*1000 && spawnCount < enemyCount)//Draws 20 enemies per line until spawnCount reaches enemyCount(100)
     {
       e[spawnCount] = new Enemies(width-((width/40)+(width/20)*(spawnCount%20)), 90+90*(spawnCount/20));
       spawnCount++;
     }
-    if (enemiesAlive == 0)
+    if (enemiesAlive == 0)//If there are no enemies alive
     {
+      //Remove all enemies so that the boss can be drawn
       spawnCount = 0;
       enemyCount = 0;
-      allEnemiesInPosition = false;
-      h.level++;
+      
+      allEnemiesInPosition = false;//Reset "allEnemiesOnScreen" since it won't be used anymore
+      h.level++;//Progress to the next level
     }
   }
 }
@@ -212,6 +230,7 @@ void keyPressed()
   if (key == 'g')//If the player presses 'g'
     p.switchPlayer();//Switch the character the player's playing as
 
+  //Music is incomplete, didn't get to this
   if (key == 'n')
 
     if (key == 'r')

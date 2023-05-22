@@ -155,13 +155,12 @@ class Enemies
       p.shotOnScreen = false;//Removes the player's shot from the screen
       h.score = h.score + 50;//Adds 50 to the player's score
       enemyLeavingScreen = true;//Makes the enemy leave the screen
-      enemiesOnScreen = 0;
-      if(h.score >= h.highScore)
+      enemiesOnScreen--;//Reduces the amount of enemies on screen by one to allow the level to proceed when all enemies are dead
+      if(h.score >= h.highScore)//If the current score is greater than the high score, set the high score to the current score
         h.highScore = h.score;
     }
     //If enemy player gets shot while leaving the screen
     else if(dist((enemyxPos+enemyxOffset), (enemyyPos + enemyyOffset), p.shotX, p.shotY) <= (enemySize/2) && p.shotOnScreen && enemyLeavingScreen)
       p.shotOnScreen = false;//Remove the player shot from the screen
   }
- 
 }
