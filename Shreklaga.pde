@@ -6,7 +6,7 @@
 
 // galaga type game
 //makes it to where you can play the sounds(NOT COMPLETE)
-import beads.*;
+/*import beads.*;
 import java.util.Arrays;
 AudioContext ac;
 AudioContext ac2;
@@ -20,7 +20,7 @@ AudioContext ac9;
 AudioContext ac10;
 AudioContext ac11;
 AudioContext ac12;
-GranularSamplePlayer music;
+GranularSamplePlayer music;*/
 Stars s;
 Player p;
 HUD h;
@@ -40,11 +40,11 @@ boolean allEnemiesInPosition = false;
 public Enemies [] e = new Enemies[enemyCount];
 void setup()
 {
-  ac = new AudioContext();
+  /*ac = new AudioContext();
   ac2 = new AudioContext();
   ac3 = new AudioContext();
   ac4 = new AudioContext();
-  ac5 = new AudioContext();
+  ac5 = new AudioContext();*/
   fullScreen();
   s = new Stars();
   s = new Stars();
@@ -231,7 +231,7 @@ void keyPressed()
     p.switchPlayer();//Switch the character the player's playing as
 
   //Music is incomplete, didn't get to this
-  if (key == 'n')
+  /*if (key == 'n')
 
     if (key == 'r')
     {

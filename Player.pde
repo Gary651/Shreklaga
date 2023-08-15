@@ -133,13 +133,13 @@ class Player
       shotX = playerX;
       shotY = height-playerSize;
       //Music info
-      ac = new AudioContext();
+      /*ac = new AudioContext();
       Sample sample = SampleManager.sample(dataPath("laser.mp3"));
       music = new GranularSamplePlayer(ac, sample);
       Gain g = new Gain(ac, 2, 1.0);
       g.addInput(music);
       ac.out.addInput(g);
-      ac.start();
+      ac.start();*/
     }
   }
  
